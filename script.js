@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
         animateBackgroundColor(); 
     }
     toggleMusicBtn.addEventListener('click', () => {
-        alert("Monody - The Fat Rat");
         if (isMusicPlaying) {
             backgroundMusic.pause();
             toggleMusicBtn.textContent = '🎶 Bật Nhạc';
         } else {
+            alert("Monody - The Fat Rat");
             backgroundMusic.play().then(() => {
                 toggleMusicBtn.textContent = '🔇 Tắt Nhạc';
             }).catch(error => {
