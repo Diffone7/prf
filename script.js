@@ -32,14 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleMusicBtn.addEventListener('click', () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
-            toggleMusicBtn.textContent = '🎶 Bật Nhạc';
+            toggleMusicBtn.textContent = '🔇 Stop';
         } else {
             alert("Monody - The Fat Rat");
             backgroundMusic.play().then(() => {
-                toggleMusicBtn.textContent = '🔇 Tắt Nhạc';
+                toggleMusicBtn.textContent = '🎶 Play';
             }).catch(error => {
                 console.log("Music autoplay prevented:", error);
-                alert("Trình duyệt chặn tự động phát nhạc. Vui lòng tương tác để bật.");
             });
         }
         isMusicPlaying = !isMusicPlaying;
