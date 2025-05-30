@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
             toggleMusicBtn.textContent = '🎶 Bật Nhạc';
+            alert("Monody - The Fat Rat");
         } else {
             backgroundMusic.play().then(() => {
                 toggleMusicBtn.textContent = '🔇 Tắt Nhạc';
