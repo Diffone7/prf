@@ -48,11 +48,11 @@ function startColorAnimation() {
     toggleMusicBtn.addEventListener('click', () => {
         if (isMusicPlaying) {
             backgroundMusic.pause();
-            toggleMusicBtn.textContent = '🔇 Stop';
+            toggleMusicBtn.textContent = '🎶 Play';
         } else {
             alert("Monody - The Fat Rat");
             backgroundMusic.play().then(() => {
-                toggleMusicBtn.textContent = '🎶 Play';
+                toggleMusicBtn.textContent = '🔇 Stop';
             }).catch(error => {
                 console.log("Music autoplay prevented:", error);
             });
