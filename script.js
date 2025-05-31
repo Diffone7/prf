@@ -5,17 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleMusicBtn = document.getElementById('toggle-music-btn');
 
     let isMusicPlaying = false;
-
-if (backgroundVideo) {
-    backgroundVideo.play().catch(error => {
-        console.log("Video autoplay prevented:", error);
-        // Nếu video không phát được, có thể bạn muốn chạy hiệu ứng đổi màu ở đây
-        startColorAnimation();
-    });
-} else {
     startColorAnimation();
-}
-
 function startColorAnimation() {
     const backgroundContainer = document.body; 
     let r = Math.floor(Math.random() * 256);
