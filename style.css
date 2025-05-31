@@ -77,9 +77,9 @@ body::before {
 
 .profile-section {
     position: relative;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0; 
+    padding-bottom: 20px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 #avatar {
@@ -125,16 +125,41 @@ body::before {
     opacity: 0.8;
 }
 
+.notes-section {
+    margin-top: 30px; 
+    border-top: none; 
+    padding-top: 0; 
+    text-align: left;
+    padding-bottom: 20px; 
+    margin-bottom: 20px;  
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.notes-section h2 {
+    margin-bottom: 20px; 
+    font-size: 1.8em; 
+    text-align: center; 
+    border-bottom: none; 
+}
+
+.notes-section p {
+    line-height: 1.6; 
+    opacity: 0.9; 
+    margin-bottom: 10px;  
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
 .links-section {
-    margin: 30px 0;
+    margin-top: 20px; 
+    margin-bottom: 30px; 
 }
 
 .bio-link {
     display: block;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1); 
     color: #fff;
-    padding: 15px 20px;
-    margin: 15px 0;
+    padding: 15px 20px; 
     border-radius: 10px;
     text-decoration: none;
     font-size: 1.1em;
@@ -143,10 +168,10 @@ body::before {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.bio-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+.links-section .bio-link:not(:first-child) {
+    margin-top: 15px;     
+    padding-top: 15px;    
+    border-top: 1px solid rgba(255, 255, 255, 0.15); 
 }
 
 .bio-link.facebook { background-color: #3b5998; }
@@ -159,9 +184,9 @@ body::before {
 .bio-link.email:hover { background-color: #c82333; }
 
 .youtube-section {
-    margin-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 30px;
+    margin-top: 40px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.2); 
+    padding-top: 30px; 
 }
 
 .youtube-section h2 {
@@ -205,25 +230,6 @@ body::before {
     scroll-snap-align: start; 
 }
 
-.notes-section {
-    margin-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 30px;
-    text-align: left;
-}
-
-.notes-section h2 {
-    margin-bottom: 15px;
-    font-size: 1.8em;
-    text-align: center;
-}
-
-.notes-section p {
-    line-height: 1.6;
-    margin-bottom: 10px;
-    opacity: 0.9;
-}
-
 @media (max-width: 768px) {
     .container {
         padding: 25px;
@@ -244,8 +250,13 @@ body::before {
     }
 
     .bio-link {
-        padding: 12px 15px;
+        padding: 12px 15px; 
         font-size: 1em;
+    }
+    
+    .links-section .bio-link:not(:first-child) {
+        margin-top: 10px;     
+        padding-top: 10px;    
     }
 
     .video-carousel iframe {
