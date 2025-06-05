@@ -33,24 +33,7 @@ body::before {
     z-index: -1;
 }
 
-#toggle-music-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    z-index: 1000;
-    transition: background-color 0.3s ease;
-}
-
-#toggle-music-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
+/* CSS cho #toggle-music-btn đã được xóa */
 
 .container {
     background-color: rgba(0, 0, 0, 0.5);
@@ -69,9 +52,10 @@ body::before {
 
 .profile-section {
     position: relative;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    overflow: hidden;
+    padding-bottom: 20px; /* Đảm bảo có không gian cho border */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4); /* Tăng độ rõ của border một chút */
+    overflow: visible; /* Thay đổi từ hidden sang visible để tránh clipping không mong muốn của transform/blur */
+                                /* Cân nhắc: nếu `transform: scale()` trên child quá lớn có thể ảnh hưởng layout */
 }
 
 .background-image-behind-avatar {
@@ -82,11 +66,13 @@ body::before {
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 0.3;
-    z-index: 1;
+    opacity: 0.35; /* Tăng nhẹ opacity để dễ thấy hơn, nhưng vẫn đủ mờ */
+    z-index: -1;   /* Đặt z-index âm để đảm bảo nó nằm sau nội dung và border của .profile-section */
     filter: blur(4px);
-    transform: translateY(-10px) scale(1.1);
-    border-radius: inherit;
+    transform: translateY(0) scale(1); /* Reset hoặc giảm bớt transform nếu gây lỗi clipping border */
+                                      /* Nếu vẫn muốn hiệu ứng, có thể cần điều chỉnh padding của .profile-section */
+    /* border-radius: inherit; /* Bỏ hoặc đặt thành 0 nếu profile-section không bo góc */
+    border-radius: 0; /* Giả sử profile-section không bo góc */
 }
 
 #avatar {
@@ -97,7 +83,7 @@ body::before {
     border: 5px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Vẫn giữ z-index cao hơn background */
     transition: transform 0.3s ease;
 }
 
@@ -217,7 +203,6 @@ body::before {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
-
 .video-carousel::-webkit-scrollbar { height: 8px; }
 .video-carousel::-webkit-scrollbar-track { background: rgba(0,0,0, 0.2); border-radius: 10px; }
 .video-carousel::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.4); border-radius: 10px; border: 2px solid rgba(0,0,0, 0.2); }
