@@ -50,7 +50,7 @@ body::before {
 
 .profile-section {
     position: relative;
-    padding-bottom: 35px; /* Tăng padding để kéo border xuống xa hơn */
+    padding-bottom: 35px; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     overflow: hidden;
 }
@@ -66,7 +66,7 @@ body::before {
     opacity: 0.3;
     z-index: -1;
     filter: blur(4px);
-    transform: translateY(-5px) scale(1.05); /* Giữ nguyên cho desktop */
+    transform: translateY(-5px) scale(1.05);
     border-radius: 0;
 }
 
@@ -221,11 +221,11 @@ body::before {
         margin: 20px auto;
     }
     .profile-section {
-        padding-bottom: 25px; /* Điều chỉnh padding cho mobile để border không quá sát */
+        padding-bottom: 25px; 
     }
     .background-image-behind-avatar {
-        transform: scale(1.02); /* Đơn giản hóa transform cho mobile để dễ hiển thị */
-                                /* Hoặc có thể thử transform: none; nếu vẫn bị cắt */
+        transform: none ; 
+                                /*transform: scale(1.02)*/
     }
     #avatar {
         width: 120px;
