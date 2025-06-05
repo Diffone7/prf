@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const backgroundMusic = document.getElementById('background-music');
-    const toggleMusicBtn = document.getElementById('toggle-music-btn');
     const bodyElement = document.body;
 
-    let isMusicPlaying = false;
     startColorAnimation();
 
     function startColorAnimation() {
@@ -25,22 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(updateColor);
     }
-
-    toggleMusicBtn.addEventListener('click', () => {
-        if (isMusicPlaying) {
-            backgroundMusic.pause();
-            toggleMusicBtn.textContent = '🎶 Play The Music';
-        } else {
-            alert("Monody - The Fat Rat");
-            backgroundMusic.play().then(() => {
-                toggleMusicBtn.textContent = '🔇 Stop The Music';
-            }).catch(error => {
-                console.log("Music autoplay prevented:", error);
-                toggleMusicBtn.textContent = '🎶 Play (Error)';
-            });
-        }
-        isMusicPlaying = !isMusicPlaying;
-    });
 
     const tabLinks = document.querySelectorAll('.tab-link');
     const contentSections = document.querySelectorAll('.content-section');
