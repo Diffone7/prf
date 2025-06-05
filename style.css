@@ -50,7 +50,7 @@ body::before {
 
 .profile-section {
     position: relative;
-    padding-bottom: 25px; /* Tăng padding-bottom từ 20px lên 25px */
+    padding-bottom: 25px; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     overflow: hidden;
 }
@@ -98,7 +98,7 @@ body::before {
 .tagline {
     font-size: 1.1em;
     opacity: 0.8;
-    margin-bottom: 10px; /* Giữ nguyên hoặc điều chỉnh nếu cần thêm không gian cho tagline */
+    margin-bottom: 10px;
     position: relative;
     z-index: 2;
 }
@@ -106,15 +106,15 @@ body::before {
 .tab-navigation {
     display: flex;
     justify-content: center;
-    padding-bottom: 10px;
-    margin-top: 20px; /* Khoảng cách từ border của .profile-section đến tab */
+    padding-bottom: 15px; 
+    margin-top: 15px; 
     margin-bottom: 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     position: relative;
 }
 
 .tab-link {
-    padding: 10px 15px;
+    padding: 10px 15px; 
     text-decoration: none;
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.1em;
@@ -230,9 +230,9 @@ body::before {
     .name { font-size: 2em; }
     .tagline { font-size: 1em; }
     .tab-navigation {
-        margin-top: 15px; 
+        margin-top: 15px;
+        padding-bottom: 15px;
         margin-bottom: 20px;
-        padding-bottom: 8px;
     }
     .tab-link {
         padding: 8px 10px;
