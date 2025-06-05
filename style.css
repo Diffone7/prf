@@ -50,24 +50,25 @@ body::before {
 
 .profile-section {
     position: relative;
-    padding-bottom: 20px; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Tăng độ đậm border */
-    overflow: hidden; /* Quay lại hidden để quản lý transform của child tốt hơn */
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
 }
 
 .background-image-behind-avatar {
     position: absolute;
-    top: 0;
+    top: 0; /* Giữ top: 0 để transform dễ kiểm soát hơn từ vị trí gốc */
     left: 0;
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center;
-    opacity: 0.3; 
-    z-index: -1;   /* Quan trọng: Đảm bảo nằm sau nội dung và border của .profile-section */
+    background-position: center; /* Căn giữa ảnh nền */
+    opacity: 0.3;
+    z-index: -1;
     filter: blur(4px);
-    transform: scale(1.05); /* Giảm scale một chút, bỏ translate để đơn giản hóa */
-    border-radius: 0; 
+    /* Dịch ảnh lên trên 5px rồi mới scale */
+    transform: translateY(-5px) scale(1.05); /* Điều chỉnh ở đây */
+    border-radius: 0;
 }
 
 #avatar {
@@ -78,7 +79,7 @@ body::before {
     border: 5px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
     position: relative;
-    z-index: 2; 
+    z-index: 2;
     transition: transform 0.3s ease;
 }
 
@@ -109,7 +110,7 @@ body::before {
     padding-bottom: 10px;
     margin-top: 20px;
     margin-bottom: 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35); /* Tăng độ đậm border */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
     position: relative;
 }
 
