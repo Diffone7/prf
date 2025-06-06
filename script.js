@@ -1,48 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bodyElement = document.body;
 
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-
-    function updateViewCount() {
+    function updateGlobalViewCount() {
         const viewCountElement = document.getElementById('view-count-number');
-        let count = getCookie('pageViewCount');
+        if (!viewCountElement) return;
 
+        const namespace = 'ntmc0987se.github.io';
+        const key = 'bio-views';
 
-        if (count) {
+        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            .then(response => response.json())
+            .then(data => {
 
-            count = parseInt(count, 10) + 1;
-        } else {
-
-            count = 1;
-        }
-
-        setCookie('pageViewCount', count, 365); 
- 
-        if(viewCountElement) {
-            viewCountElement.innerText = count;
-        }
+                viewCountElement.innerText = data.value;
+            })
+            .catch(error => {
+                console.error('Error fetching view count:', error);
+                viewCountElement.innerText = 'N/A'; 
+            });
     }
 
-    updateViewCount();
+    updateGlobalViewCount();
 
     startColorAnimation();
 
