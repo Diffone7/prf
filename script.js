@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let r = Math.floor(Math.random() * 256);
         let g = Math.floor(Math.random() * 256);
         let b = Math.floor(Math.random() * 256);
-        // Tăng hệ số ở đây để màu thay đổi nhanh hơn
-        let rSpeed = (Math.random() - 0.5) * 2.0; // Tăng từ 0.8 lên 2.0
-        let gSpeed = (Math.random() - 0.5) * 2.0; // Tăng từ 0.8 lên 2.0
-        let bSpeed = (Math.random() - 0.5) * 2.0; // Tăng từ 0.8 lên 2.0
+        let rSpeed = (Math.random() - 0.5) * 5.0; 
+        let gSpeed = (Math.random() - 0.5) * 5.0; 
+        let bSpeed = (Math.random() - 0.5) * 5.0;
 
         function updateColor() {
             r += rSpeed; g += gSpeed; b += bSpeed;
