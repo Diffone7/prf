@@ -1,15 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bodyElement = document.body;
 
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function updateViewCount() {
+        const viewCountElement = document.getElementById('view-count-number');
+        let count = getCookie('pageViewCount');
+
+
+        if (count) {
+
+            count = parseInt(count, 10) + 1;
+        } else {
+
+            count = 1;
+        }
+
+        setCookie('pageViewCount', count, 365); 
+ 
+        if(viewCountElement) {
+            viewCountElement.innerText = count;
+        }
+    }
+
+    updateViewCount();
+
     startColorAnimation();
 
     function startColorAnimation() {
         let r = Math.floor(Math.random() * 256);
         let g = Math.floor(Math.random() * 256);
         let b = Math.floor(Math.random() * 256);
-        let rSpeed = (Math.random() - 0.5) * 5.0; 
-        let gSpeed = (Math.random() - 0.5) * 5.0; 
-        let bSpeed = (Math.random() - 0.5) * 5.0;
+        let rSpeed = (Math.random() - 0.5) * 0.8;
+        let gSpeed = (Math.random() - 0.5) * 0.8;
+        let bSpeed = (Math.random() - 0.5) * 0.8;
 
         function updateColor() {
             r += rSpeed; g += gSpeed; b += bSpeed;
