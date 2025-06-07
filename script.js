@@ -1,27 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bodyElement = document.body;
 
-    function updateGlobalViewCount() {
-        const viewCountElement = document.getElementById('view-count-number');
-        if (!viewCountElement) return;
-
-        const namespace = 'ntmc0987se.github.io';
-        const key = 'bio-views';
-
-        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-            .then(response => response.json())
-            .then(data => {
-
-                viewCountElement.innerText = data.value;
-            })
-            .catch(error => {
-                console.error('Error fetching view count:', error);
-                viewCountElement.innerText = 'N/A'; 
-            });
-    }
-
-    updateGlobalViewCount();
-
     startColorAnimation();
 
     function startColorAnimation() {
