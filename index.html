@@ -748,53 +748,114 @@
             }
         }
         @keyframes burstParticle {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
-        opacity: 0;
-    }
-}
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
+                opacity: 0;
+            }
+        }
 
-@keyframes rippleExpand {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(3);
-        opacity: 0;
-    }
-}
+        @keyframes rippleExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
 
-@keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(-20px, -30px) scale(1.2); }
-    50% { transform: translate(20px, -20px) scale(0.8); }
-    75% { transform: translate(-15px, 25px) scale(1.1); }
-}
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-20px, -30px) scale(1.2); }
+            50% { transform: translate(20px, -20px) scale(0.8); }
+            75% { transform: translate(-15px, 25px) scale(1.1); }
+        }
 
-@keyframes waveAnimation {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
-    50% { transform: scale(1.1) rotate(180deg); opacity: 0.4; }
-}
+        @keyframes waveAnimation {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.4; }
+        }
 
-.animate {
-    animation: fadeInUp 0.6s ease-out;
-}
+        .animate {
+            animation: fadeInUp 0.6s ease-out;
+        }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Cursor Shapes */
+        .cursor-shape {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform, opacity;
+            transition: opacity 0.5s ease-out;
+            background-color: hsl(var(--hue), 85%, 65%);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .cursor-shape.circle {
+            border-radius: 50%;
+        }
+
+        .cursor-shape.square {
+            border-radius: 0;
+        }
+
+        .cursor-shape.triangle {
+            width: 0;
+            height: 0;
+            background-color: transparent;
+            border-left: var(--size) solid transparent;
+            border-right: var(--size) solid transparent;
+            border-bottom: calc(var(--size) * 1.732) solid hsl(var(--hue), 85%, 65%); /* Equilateral triangle */
+        }
+
+        .cursor-shape.hexagon {
+            width: calc(var(--size) * 2);
+            height: calc(var(--size) * 1.732); /* height = side * sqrt(3) */
+            background-color: hsl(var(--hue), 85%, 65%);
+            position: relative;
+            transform: rotate(90deg); /* To make it stand upright */
+        }
+        .cursor-shape.hexagon::before,
+        .cursor-shape.hexagon::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: var(--size) solid transparent;
+            border-right: var(--size) solid transparent;
+        }
+        .cursor-shape.hexagon::before {
+            bottom: 100%;
+            border-bottom: calc(var(--size) * 0.866) solid hsl(var(--hue), 85%, 65%); /* height = side * sqrt(3)/2 */
+        }
+        .cursor-shape.hexagon::after {
+            top: 100%;
+            border-top: calc(var(--size) * 0.866) solid hsl(var(--hue), 85%, 65%);
+        }
+
+        .cursor-shape.pentagon {
+            width: 0;
+            height: 0;
+            background-color: transparent;
+            border-style: solid;
+            border-width: 0 calc(var(--size) * 0.951) calc(var(--size) * 0.688) calc(var(--size) * 0.951); /* Calculated for a regular pentagon */
+            border-color: transparent transparent hsl(var(--hue), 85%, 65%) transparent;
+            transform: rotate(18deg); /* To make it stand upright */
+        }
     </style>
 </head>
 <body>
@@ -937,7 +998,7 @@
                     </div>
                 </div>
 
-<div class="right-section">
+                <div class="right-section">
                     <h3>PC Configuration</h3>
                     <div class="spec-table">
                         <div class="spec-row">
@@ -983,122 +1044,6 @@
     </div>
 </div>
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Create animated particles
-    function createParticles() {
-        const particlesContainer = document.querySelector('.particles');
-        const particleCount = 50;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 6 + 's';
-            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            particlesContainer.appendChild(particle);
-        }
-    }
-
-    createParticles();
-
-    // Tab navigation with smooth transitions
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    function showSection(targetSectionId, updateHistory = true) {
-        // Remove active classes
-        contentSections.forEach(section => {
-            section.classList.remove('active-content');
-        });
-        tabLinks.forEach(link => {
-            link.classList.remove('active-tab');
-        });
-
-        // Add active classes
-        const activeSection = document.getElementById(targetSectionId);
-        const activeLink = document.querySelector(`.tab-link[data-section="${targetSectionId}"]`);
-
-        if (activeSection) {
-            activeSection.classList.add('active-content');
-        }
-        if (activeLink) {
-            activeLink.classList.add('active-tab');
-            if (updateHistory) {
-                history.pushState(null, '', activeLink.getAttribute('href'));
-            }
-        }
-    }
-
-    // Handle tab clicks
-    tabLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const sectionIdToShow = link.getAttribute('data-section');
-            showSection(sectionIdToShow, true);
-        });
-    });
-
-    // Handle hash changes and initial load
-    function handleHashChange() {
-        const hash = window.location.hash;
-        let sectionIdToShow = 'about-content';
-        let targetHash = '#about';
-
-        if (hash) {
-            const correspondingLink = document.querySelector(`.tab-link[href="${hash}"]`);
-            if (correspondingLink) {
-                sectionIdToShow = correspondingLink.getAttribute('data-section');
-                targetHash = hash;
-            } else {
-                history.replaceState(null, '', targetHash);
-            }
-        } else {
-            history.replaceState(null, '', targetHash);
-        }
-        showSection(sectionIdToShow, false);
-    }
-
-    window.addEventListener('popstate', handleHashChange);
-    handleHashChange();
-
-    // Enhanced hover effects
-    const bioLinks = document.querySelectorAll('.bio-link');
-    bioLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            link.style.transform = 'translateY(-2px) scale(1.02)';
-        });
-        link.addEventListener('mouseleave', () => {
-            link.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Smooth scrolling for video carousel
-    const videoCarousel = document.querySelector('.video-carousel');
-    if (videoCarousel) {
-        videoCarousel.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            videoCarousel.scrollLeft += e.deltaY;
-        });
-    }
-});
-
-// Dream modal functionality
-function openDreamModal() {
-    document.getElementById('dreamModal').style.display = 'block';
-}
-
-function closeDreamModal() {
-    document.getElementById('dreamModal').style.display = 'none';
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('dreamModal');
-    if (event.target === modal) {
-        closeDreamModal();
-    }
-}
 // ========================
 // 1. MAIN INITIALIZATION
 // ========================
@@ -1126,7 +1071,6 @@ function createBackgroundParticles() {
     const particleCount = Math.min(window.innerWidth / 20, 60); // Adaptive particle count
     const particleTypes = ['particle-1', 'particle-2', 'particle-3'];
     
-    // Clear existing particles
     particlesContainer.innerHTML = '';
 
     for (let i = 0; i < particleCount; i++) {
@@ -1138,8 +1082,6 @@ function createBackgroundParticles() {
         particle.style.top = Math.random() * 100 + '%';
         particle.style.animationDelay = Math.random() * 8 + 's';
         particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-        
-        // Add random initial transform
         particle.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 0.5})`;
         
         particlesContainer.appendChild(particle);
@@ -1150,44 +1092,31 @@ function createBackgroundParticles() {
 // 3. BACKGROUND ORBS SYSTEM
 // ========================
 function createBackgroundOrbs() {
-    // Create container if doesn't exist
     let orbsContainer = document.querySelector('.glowing-orbs');
     if (!orbsContainer) {
         orbsContainer = document.createElement('div');
         orbsContainer.className = 'glowing-orbs';
         orbsContainer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
         `;
         document.body.appendChild(orbsContainer);
     }
 
     const orbCount = 8;
-    
     for (let i = 0; i < orbCount; i++) {
         const orb = document.createElement('div');
         orb.className = 'orb';
-        
         const size = Math.random() * 200 + 100;
         orb.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${Math.random() * window.innerWidth}px;
-            top: ${Math.random() * window.innerHeight}px;
+            position: absolute; width: ${size}px; height: ${size}px;
+            left: ${Math.random() * window.innerWidth}px; top: ${Math.random() * window.innerHeight}px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 150)}, ${Math.floor(Math.random() * 100 + 200)}, 0.1) 0%, transparent 70%);
             animation: orbFloat ${12 + Math.random() * 8}s ease-in-out infinite;
             animation-delay: ${Math.random() * 5}s;
             filter: blur(${Math.random() * 2 + 1}px);
         `;
-        
         orbsContainer.appendChild(orb);
     }
 }
@@ -1201,13 +1130,8 @@ function initializeWaveEffect() {
         waveContainer = document.createElement('div');
         waveContainer.className = 'wave-effect';
         waveContainer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
             background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
             animation: waveAnimation 6s ease-in-out infinite;
         `;
@@ -1219,7 +1143,6 @@ function initializeWaveEffect() {
 // 5. OPTIMIZED CURSOR EFFECT
 // ========================
 function initializeCursorEffect() {
-    // Skip cursor effects on mobile devices
     if (window.innerWidth <= 768) return;
 
     const cursorContainer = createCursorContainer();
@@ -1227,24 +1150,26 @@ function initializeCursorEffect() {
     
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let isMouseMoving = false;
-    let mouseStopTimer = null;
+    let idleTimer = null;
+    let randomCursorInterval = null;
+    let randomCursorAnimationId = null;
 
-    // Mouse movement handler
     const handleMouseMove = throttle((e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
         cursorTrail.updateTarget(mouseX, mouseY);
         
-        isMouseMoving = true;
-        clearTimeout(mouseStopTimer);
-        mouseStopTimer = setTimeout(() => {
-            isMouseMoving = false;
-        }, 100);
-    }, 16); // 60fps throttle
+        stopRandomCursorMovement();
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            if (window.innerWidth > 768) {
+                startRandomCursorMovement();
+            }
+        }, 3000);
 
-    // Click effect handler
+    }, 16);
+
     const handleClick = (e) => {
         createClickRipple(e.clientX, e.clientY);
         cursorTrail.addClickBurst(e.clientX, e.clientY);
@@ -1252,9 +1177,87 @@ function initializeCursorEffect() {
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('click', handleClick);
-    
-    // Start animation loop
     cursorTrail.startAnimation();
+
+    document.body.addEventListener('mouseleave', () => {
+        if (window.innerWidth > 768) {
+            startRandomCursorMovement();
+        }
+    });
+
+    document.body.addEventListener('mouseenter', () => {
+        stopRandomCursorMovement();
+        clearTimeout(idleTimer);
+    });
+
+    function generateRandomShape() {
+        const shapes = ['circle', 'square', 'triangle', 'hexagon', 'pentagon'];
+        return shapes[Math.floor(Math.random() * shapes.length)];
+    }
+
+    function startRandomCursorMovement() {
+        if (randomCursorInterval) return;
+
+        const randomCursor = document.createElement('div');
+        randomCursor.id = 'random-cursor';
+        randomCursor.style.cssText = `
+            position: fixed; pointer-events: none; z-index: 10000;
+            opacity: 0; transition: opacity 0.5s ease-in-out;
+        `;
+        document.body.appendChild(randomCursor);
+
+        let currentX = mouseX;
+        let currentY = mouseY;
+        let targetX = Math.random() * window.innerWidth;
+        let targetY = Math.random() * window.innerHeight;
+        let hue = 0;
+
+        randomCursorInterval = setInterval(() => {
+            targetX = Math.random() * window.innerWidth;
+            targetY = Math.random() * window.innerHeight;
+            
+            const size = 15 + Math.random() * 15;
+            const shape = generateRandomShape();
+            hue = (hue + 20) % 360;
+            randomCursor.style.setProperty('--hue', hue);
+            randomCursor.style.setProperty('--size', `${size / 2}px`);
+            randomCursor.className = `cursor-shape ${shape}`;
+            randomCursor.style.width = `${size}px`;
+            randomCursor.style.height = `${size}px`;
+            randomCursor.style.opacity = 1;
+        }, 2500);
+
+        function animateRandomly() {
+            currentX += (targetX - currentX) * 0.02;
+            currentY += (targetY - currentY) * 0.02;
+            
+            randomCursor.style.left = `${currentX}px`;
+            randomCursor.style.top = `${currentY}px`;
+            randomCursor.style.transform = `translate(-50%, -50%) rotate(${currentX * 0.5}deg)`;
+            
+            // KEY CHANGE: Make the trail follow the random cursor
+            cursorTrail.updateTarget(currentX, currentY);
+            
+            randomCursorAnimationId = requestAnimationFrame(animateRandomly);
+        }
+        animateRandomly();
+    }
+
+    function stopRandomCursorMovement() {
+        if (randomCursorInterval) {
+            clearInterval(randomCursorInterval);
+            randomCursorInterval = null;
+        }
+        if (randomCursorAnimationId) {
+            cancelAnimationFrame(randomCursorAnimationId);
+            randomCursorAnimationId = null;
+        }
+        const randomCursor = document.getElementById('random-cursor');
+        if (randomCursor) {
+            randomCursor.style.opacity = 0;
+            setTimeout(() => randomCursor.remove(), 500);
+        }
+    }
 }
 
 function createCursorContainer() {
@@ -1263,13 +1266,8 @@ function createCursorContainer() {
         container = document.createElement('div');
         container.id = 'cursor-container';
         container.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999;
         `;
         document.body.appendChild(container);
     }
@@ -1285,30 +1283,22 @@ class CursorTrail {
         this.hue = 0;
         this.velocity = 0;
         this.mouseHistory = [];
-        
         this.initializeDots();
     }
 
     initializeDots() {
         const DOT_COUNT = 25;
         const BASE_SIZE = 16;
-        
         for (let i = 0; i < DOT_COUNT; i++) {
             const dot = document.createElement('div');
             dot.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                pointer-events: none;
-                will-change: transform;
-                transition: none;
+                position: absolute; border-radius: 50%; pointer-events: none;
+                will-change: transform; transition: none;
             `;
-            
             this.container.appendChild(dot);
-            
             this.dots.push({
                 element: dot,
-                x: this.targetX,
-                y: this.targetY,
+                x: this.targetX, y: this.targetY,
                 size: Math.max(BASE_SIZE - i * 0.6, 4),
                 speed: 0.15 - i * 0.004,
                 opacity: Math.max(0.9 - i * 0.03, 0.1)
@@ -1319,50 +1309,33 @@ class CursorTrail {
     updateTarget(x, y) {
         this.targetX = x;
         this.targetY = y;
-        
-        // Update mouse history for velocity calculation
         this.mouseHistory.push({ x, y, time: Date.now() });
-        if (this.mouseHistory.length > 3) {
-            this.mouseHistory.shift();
-        }
+        if (this.mouseHistory.length > 3) this.mouseHistory.shift();
         
-        // Calculate velocity
         if (this.mouseHistory.length >= 2) {
             const recent = this.mouseHistory[this.mouseHistory.length - 1];
             const old = this.mouseHistory[0];
-            const distance = Math.sqrt(
-                Math.pow(recent.x - old.x, 2) + Math.pow(recent.y - old.y, 2)
-            );
+            const distance = Math.sqrt(Math.pow(recent.x - old.x, 2) + Math.pow(recent.y - old.y, 2));
             const time = recent.time - old.time;
             this.velocity = time > 0 ? distance / time * 10 : 0;
         }
     }
 
     addClickBurst(x, y) {
-        // Create temporary burst particles
         for (let i = 0; i < 8; i++) {
             const particle = document.createElement('div');
             particle.style.cssText = `
-                position: fixed;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: hsl(${this.hue}, 80%, 60%);
-                pointer-events: none;
-                z-index: 9998;
-                left: ${x}px;
-                top: ${y}px;
+                position: fixed; width: 6px; height: 6px; border-radius: 50%;
+                background: hsl(${this.hue}, 80%, 60%); pointer-events: none;
+                z-index: 9998; left: ${x}px; top: ${y}px;
                 animation: burstParticle 0.8s ease-out forwards;
                 transform-origin: center;
             `;
-            
             const angle = (i / 8) * Math.PI * 2;
             const distance = 50 + Math.random() * 30;
             particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
             particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
-            
             document.body.appendChild(particle);
-            
             setTimeout(() => particle.remove(), 800);
         }
     }
@@ -1396,10 +1369,9 @@ class CursorTrail {
                 }
             });
             
-            this.velocity *= 0.95; // Decay velocity
+            this.velocity *= 0.95;
             requestAnimationFrame(animate);
         };
-        
         animate();
     }
 }
@@ -1410,19 +1382,12 @@ class CursorTrail {
 function createClickRipple(x, y) {
     const ripple = document.createElement('div');
     ripple.style.cssText = `
-        position: fixed;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9997;
-        left: ${x}px;
-        top: ${y}px;
+        position: fixed; width: 100px; height: 100px; border-radius: 50%;
+        pointer-events: none; z-index: 9997; left: ${x}px; top: ${y}px;
         transform: translate(-50%, -50%);
         background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
         animation: rippleExpand 0.6s ease-out forwards;
     `;
-    
     document.body.appendChild(ripple);
     setTimeout(() => ripple.remove(), 600);
 }
@@ -1437,32 +1402,23 @@ function initializeTabNavigation() {
     if (!tabLinks.length || !contentSections.length) return;
 
     function showSection(targetSectionId, updateHistory = true) {
-        contentSections.forEach(section => {
-            section.classList.remove('active-content');
-        });
-        tabLinks.forEach(link => {
-            link.classList.remove('active-tab');
-        });
+        contentSections.forEach(section => section.classList.remove('active-content'));
+        tabLinks.forEach(link => link.classList.remove('active-tab'));
 
         const activeSection = document.getElementById(targetSectionId);
         const activeLink = document.querySelector(`.tab-link[data-section="${targetSectionId}"]`);
 
-        if (activeSection) {
-            activeSection.classList.add('active-content');
-        }
+        if (activeSection) activeSection.classList.add('active-content');
         if (activeLink) {
             activeLink.classList.add('active-tab');
-            if (updateHistory) {
-                history.pushState(null, '', activeLink.getAttribute('href'));
-            }
+            if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
         }
     }
 
     tabLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
-            const sectionIdToShow = link.getAttribute('data-section');
-            showSection(sectionIdToShow, true);
+            showSection(link.getAttribute('data-section'), true);
         });
     });
 
@@ -1493,21 +1449,18 @@ function initializeTabNavigation() {
 // 8. INTERACTIVE EFFECTS
 // ========================
 function initializeInteractiveEffects() {
-    // Enhanced hover effects for bio links
     const bioLinks = document.querySelectorAll('.bio-link');
     bioLinks.forEach(link => {
         link.addEventListener('mouseenter', () => {
             link.style.transform = 'translateY(-3px) scale(1.02)';
             link.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.25)';
         });
-        
         link.addEventListener('mouseleave', () => {
             link.style.transform = 'translateY(0) scale(1)';
             link.style.boxShadow = '';
         });
     });
 
-    // Smooth scrolling for video carousel
     const videoCarousel = document.querySelector('.video-carousel');
     if (videoCarousel) {
         videoCarousel.addEventListener('wheel', (e) => {
@@ -1516,13 +1469,11 @@ function initializeInteractiveEffects() {
         });
     }
 
-    // Avatar hover effect
     const avatar = document.getElementById('avatar');
     if (avatar) {
         avatar.addEventListener('mouseenter', () => {
             avatar.style.transform = 'scale(1.05) rotate(5deg)';
         });
-        
         avatar.addEventListener('mouseleave', () => {
             avatar.style.transform = 'scale(1) rotate(0deg)';
         });
@@ -1533,18 +1484,13 @@ function initializeInteractiveEffects() {
 // 9. MODAL FUNCTIONALITY
 // ========================
 function initializeModalFunctionality() {
-    // Make modal functions globally available
     window.openDreamModal = function() {
         const modal = document.getElementById('dreamModal');
         if (modal) {
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            
-            // Add blur to container
             const container = document.querySelector('.container');
-            if (container) {
-                container.classList.add('modal-open');
-            }
+            if (container) container.classList.add('modal-open');
         }
     };
 
@@ -1553,24 +1499,17 @@ function initializeModalFunctionality() {
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            
-            // Remove blur from container
             const container = document.querySelector('.container');
-            if (container) {
-                container.classList.remove('modal-open');
-            }
+            if (container) container.classList.remove('modal-open');
         }
     };
 
-    // Close modal when clicking outside
     window.addEventListener('click', (event) => {
-        const modal = document.getElementById('dreamModal');
-        if (event.target === modal) {
+        if (event.target === document.getElementById('dreamModal')) {
             window.closeDreamModal();
         }
     });
 
-    // Close modal with Escape key
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             window.closeDreamModal();
@@ -1611,20 +1550,19 @@ function debounce(func, wait) {
 // ========================
 const handleResize = debounce(() => {
     if (window.innerWidth <= 768) {
-        // Remove cursor effects on mobile
         const cursorContainer = document.getElementById('cursor-container');
-        if (cursorContainer) {
-            cursorContainer.style.display = 'none';
+        if (cursorContainer) cursorContainer.style.display = 'none';
+        
+        const randomCursor = document.getElementById('random-cursor');
+        if (randomCursor) randomCursor.remove();
+        
+        if (typeof stopRandomCursorMovement === 'function') {
+            stopRandomCursorMovement();
         }
     } else {
-        // Re-enable cursor effects on desktop
         const cursorContainer = document.getElementById('cursor-container');
-        if (cursorContainer) {
-            cursorContainer.style.display = 'block';
-        }
+        if (cursorContainer) cursorContainer.style.display = 'block';
     }
-    
-    // Recreate particles with new count
     createBackgroundParticles();
 }, 250);
 
@@ -1633,7 +1571,6 @@ window.addEventListener('resize', handleResize);
 // ========================
 // 12. PERFORMANCE OPTIMIZATION
 // ========================
-// Intersection Observer for performance optimization
 const observerOptions = {
     root: null,
     rootMargin: '50px',
@@ -1648,7 +1585,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements when they come into view
 document.addEventListener('DOMContentLoaded', () => {
     const elementsToObserve = document.querySelectorAll('.content-section, .bio-link, .video-carousel iframe');
     elementsToObserve.forEach(el => observer.observe(el));
