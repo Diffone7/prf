@@ -17,6 +17,7 @@
     <meta name="twitter:description" content="Đây là trang giới thiệu về Minh" />
     <meta name="twitter:image" content="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/505944969_1047947857294164_9159577840644626171_n.jpg?stp=c4.0.250.250a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFd4zuZ1U-Q34ERqtZCy_k5TMYBxbNJWA9MxgHFs0lYD33ZwNo_Evo3oK2xfllpXtArMkcG7RNhwwmjVmLA2EmX&_nc_ohc=I6IFYAs7eDkQ7kNvwEQs9n6&_nc_oc=AdnILOp9PjT0WRM-gMvR0xFvmo78cP1H6zI9R0rlK1pYGjfSCbEzuSPKy1JYeE_GlJs&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=x6KB_LOk0LLkAIiuJ0rCNw&oh=00_AfTYCnIMKh-I0DSxRYm9RB342jicfcF4_L5M6MVIeq3YyA&oe=687A38BB" />
     <link rel="stylesheet" href="style.css">
+    <link rel="scripts" href="scripts.js">
 </head>
 <body>
     <div class="particles"></div>
@@ -47,7 +48,7 @@
                         Time zone: UTC+7
                     </p>
                     <p>
-                        Dream: <a href="https://example.com" target="_blank" class="dream-link">A new PC and a new phone.</a>
+                        Dream: <a href="#" onclick="openDreamModal()" class="dream-link">A new PC and a new phone.</a>
                     </p>
                     <p>
                         Birthday: 18/10
@@ -78,6 +79,119 @@
                         <iframe src="https://www.youtube.com/embed/g_vLIAXurig" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <iframe src="https://www.youtube.com/embed/fE3OU5FqY0c" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <iframe src="https://www.youtube.com/embed/8GW6sLrK40k" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dreamModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeDreamModal()">&times;</span>
+            <h2 class="modal-title">Dream Setup</h2>
+            
+            <div class="modal-body">
+                <div class="left-section">
+                    <h3>OnePlus 13</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">Tên máy:</span>
+                            <span class="spec-value">OnePlus 13</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Màn hình:</span>
+                            <span class="spec-value">6.82" AMOLED, 1440x3168, 120Hz</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Cường lực:</span>
+                            <span class="spec-value">Ceramic Guard glass</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Thiết kế màn hình:</span>
+                            <span class="spec-value">Quad-curved, 4500 nits brightness</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Chip:</span>
+                            <span class="spec-value">Snapdragon 8 Elite</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">RAM:</span>
+                            <span class="spec-value">12GB/16GB/24GB</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Bộ nhớ trong:</span>
+                            <span class="spec-value">256GB/512GB/1TB UFS 4.0</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Camera sau:</span>
+                            <span class="spec-value">50MP chính + 50MP ultrawide + 50MP telephoto</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Camera trước:</span>
+                            <span class="spec-value">32MP, 4K Dolby Vision</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Pin:</span>
+                            <span class="spec-value">6000mAh Silicon Carbon</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Sạc:</span>
+                            <span class="spec-value">100W có dây + 50W không dây</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Vân tay:</span>
+                            <span class="spec-value">Ultrasonic dưới màn hình</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Kháng nước:</span>
+                            <span class="spec-value">IP68/IP69</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Hệ điều hành:</span>
+                            <span class="spec-value">OxygenOS 15 (Android 15)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Hỗ trợ cập nhật:</span>
+                            <span class="spec-value">4 năm OS + 6 năm bảo mật</span>
+                        </div>
+                    </div>
+                </div>
+
+<div class="right-section">
+                    <h3>PC Configuration</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">CPU:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">RAM:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">VGA:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Case:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">PSU:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Màn hình:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Bàn phím:</span>
+                            <span class="spec-value">...</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Chuột:</span>
+                            <span class="spec-value">...</span>
+                        </div>
                     </div>
                 </div>
             </div>
