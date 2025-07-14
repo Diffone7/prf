@@ -31,10 +31,11 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            cursor: none;
         }
 
-        /* Animated background particles */
-        .particles {
+        /* Enhanced Background Effects */
+        .background-effects {
             position: fixed;
             top: 0;
             left: 0;
@@ -42,20 +43,185 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Animated Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            animation: particleFloat 8s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        .particle-1 {
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            animation-duration: 6s;
+        }
+
+        .particle-2 {
+            width: 8px;
+            height: 8px;
+            background: rgba(78, 205, 196, 0.3);
+            animation-duration: 10s;
+        }
+
+        .particle-3 {
+            width: 6px;
+            height: 6px;
+            background: rgba(69, 183, 209, 0.3);
+            animation-duration: 12s;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-30px) rotate(90deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-15px) rotate(180deg);
+                opacity: 0.8;
+            }
+            75% { 
+                transform: translateY(-25px) rotate(270deg);
+                opacity: 0.9;
+            }
+        }
+
+        /* Interactive Wave Effect */
+        .wave-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: waveAnimation 4s ease-in-out infinite;
+        }
+
+        @keyframes waveAnimation {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
+        }
+
+        /* Glowing Orbs */
+        .glowing-orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: orbFloat 15s ease-in-out infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-20px, -30px) scale(1.2); }
+            50% { transform: translate(20px, -20px) scale(0.8); }
+            75% { transform: translate(-15px, 25px) scale(1.1); }
+        }
+
+        /* Optimized Cursor Effect */
+        .cursor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform-origin: center;
+            will-change: transform, opacity;
+            transition: none;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        /* Click Ripple Effect */
+        .click-ripple {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: rippleEffect 0.6s ease-out;
+        }
+
+        @keyframes rippleEffect {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Mouse Follower Particles */
+        .mouse-particles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9996;
+        }
+
+        .mouse-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            animation: mouseParticleFloat 2s ease-out forwards;
+        }
+
+        @keyframes mouseParticleFloat {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) translateY(-50px);
+                opacity: 0;
+            }
         }
 
         /* Glass morphism container */
@@ -363,7 +529,7 @@
             transform: scale(1.02);
         }
 
-        /* Cải tiến Dream Modal - Giữ nguyên nền gốc với overlay mờ */
+        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -384,7 +550,6 @@
         }
 
         .modal-content {
-            /* Sử dụng nền trong suốt để hiện nền gốc */
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -400,43 +565,6 @@
             color: white;
             animation: slideIn 0.4s ease-out;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            scrollbar-width: thin;
-            scrollbar-color: rgba(78, 205, 196, 0.6) rgba(255, 255, 255, 0.1);
-        }
-
-        /* Custom scrollbar cho modal */
-        .modal-content::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .modal-content::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .modal-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 10px rgba(78, 205, 196, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .modal-content::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #45b7d1, #4ecdc4);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.5);
-            transform: scale(1.05);
-        }
-
-        .modal-content::-webkit-scrollbar-thumb:active {
-            background: linear-gradient(135deg, #3aa89f, #3a9bc1);
-            box-shadow: 0 2px 8px rgba(78, 205, 196, 0.7);
-        }
-
-        .modal-content::-webkit-scrollbar-corner {
-            background: rgba(255, 255, 255, 0.1);
         }
 
         @keyframes slideIn {
@@ -549,19 +677,19 @@
             flex: 1;
         }
 
-        /* Alternative: Nếu muốn có nền riêng cho modal */
-        .modal-with-bg {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
-        }
-
-        .modal-with-bg .modal-content {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        /* Responsive design */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                cursor: default;
+            }
+            
+            .cursor-container,
+            .cursor-trail,
+            .cursor-glow,
+            .mouse-particles {
+                display: none !important;
+            }
+            
             .container {
                 padding: 24px;
                 margin: 20px auto;
@@ -600,7 +728,6 @@
                 height: 130px;
             }
 
-            /* Modal responsive */
             .modal-content {
                 margin: 5% auto;
                 padding: 20px;
@@ -619,59 +746,59 @@
             .left-section, .right-section {
                 min-width: auto;
             }
-
-            .spec-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-
-            .spec-label {
-                min-width: auto;
-            }
-
-            .spec-value {
-                text-align: left;
-            }
         }
+        @keyframes burstParticle {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
+        opacity: 0;
+    }
+}
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-                margin: 16px auto;
-                width: 95%;
-            }
+@keyframes rippleExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
 
-            .name {
-                font-size: 1.8em;
-            }
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-20px, -30px) scale(1.2); }
+    50% { transform: translate(20px, -20px) scale(0.8); }
+    75% { transform: translate(-15px, 25px) scale(1.1); }
+}
 
-            .video-carousel iframe {
-                width: 250px;
-                height: 140px;
-            }
+@keyframes waveAnimation {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
+    50% { transform: scale(1.1) rotate(180deg); opacity: 0.4; }
+}
 
-            .modal-content {
-                padding: 15px;
-            }
+.animate {
+    animation: fadeInUp 0.6s ease-out;
+}
 
-            .modal-title {
-                font-size: 1.6em;
-            }
-
-            .left-section h3, .right-section h3 {
-                font-size: 1.4em;
-            }
-
-            .close-btn {
-                font-size: 28px;
-                top: 10px;
-                right: 15px;
-            }
-        }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
     </style>
 </head>
 <body>
+    <div id="app">
     <div class="particles"></div>
 
     <div class="container">
@@ -854,7 +981,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Create animated particles
@@ -972,6 +1099,561 @@ window.onclick = function(event) {
         closeDreamModal();
     }
 }
+// ========================
+// 1. MAIN INITIALIZATION
+// ========================
+document.addEventListener('DOMContentLoaded', () => {
+    initializeAllComponents();
+});
+
+function initializeAllComponents() {
+    createBackgroundParticles();
+    initializeCursorEffect();
+    initializeTabNavigation();
+    initializeInteractiveEffects();
+    initializeModalFunctionality();
+    createBackgroundOrbs();
+    initializeWaveEffect();
+}
+
+// ========================
+// 2. BACKGROUND PARTICLES SYSTEM
+// ========================
+function createBackgroundParticles() {
+    const particlesContainer = document.querySelector('.particles');
+    if (!particlesContainer) return;
+
+    const particleCount = Math.min(window.innerWidth / 20, 60); // Adaptive particle count
+    const particleTypes = ['particle-1', 'particle-2', 'particle-3'];
+    
+    // Clear existing particles
+    particlesContainer.innerHTML = '';
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+        
+        particle.className = `particle ${type}`;
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        
+        // Add random initial transform
+        particle.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 0.5})`;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// ========================
+// 3. BACKGROUND ORBS SYSTEM
+// ========================
+function createBackgroundOrbs() {
+    // Create container if doesn't exist
+    let orbsContainer = document.querySelector('.glowing-orbs');
+    if (!orbsContainer) {
+        orbsContainer = document.createElement('div');
+        orbsContainer.className = 'glowing-orbs';
+        orbsContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        `;
+        document.body.appendChild(orbsContainer);
+    }
+
+    const orbCount = 8;
+    
+    for (let i = 0; i < orbCount; i++) {
+        const orb = document.createElement('div');
+        orb.className = 'orb';
+        
+        const size = Math.random() * 200 + 100;
+        orb.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${Math.random() * window.innerWidth}px;
+            top: ${Math.random() * window.innerHeight}px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 150)}, ${Math.floor(Math.random() * 100 + 200)}, 0.1) 0%, transparent 70%);
+            animation: orbFloat ${12 + Math.random() * 8}s ease-in-out infinite;
+            animation-delay: ${Math.random() * 5}s;
+            filter: blur(${Math.random() * 2 + 1}px);
+        `;
+        
+        orbsContainer.appendChild(orb);
+    }
+}
+
+// ========================
+// 4. WAVE EFFECT SYSTEM
+// ========================
+function initializeWaveEffect() {
+    let waveContainer = document.querySelector('.wave-effect');
+    if (!waveContainer) {
+        waveContainer = document.createElement('div');
+        waveContainer.className = 'wave-effect';
+        waveContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: waveAnimation 6s ease-in-out infinite;
+        `;
+        document.body.appendChild(waveContainer);
+    }
+}
+
+// ========================
+// 5. OPTIMIZED CURSOR EFFECT
+// ========================
+function initializeCursorEffect() {
+    // Skip cursor effects on mobile devices
+    if (window.innerWidth <= 768) return;
+
+    const cursorContainer = createCursorContainer();
+    const cursorTrail = new CursorTrail(cursorContainer);
+    
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let isMouseMoving = false;
+    let mouseStopTimer = null;
+
+    // Mouse movement handler
+    const handleMouseMove = throttle((e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        cursorTrail.updateTarget(mouseX, mouseY);
+        
+        isMouseMoving = true;
+        clearTimeout(mouseStopTimer);
+        mouseStopTimer = setTimeout(() => {
+            isMouseMoving = false;
+        }, 100);
+    }, 16); // 60fps throttle
+
+    // Click effect handler
+    const handleClick = (e) => {
+        createClickRipple(e.clientX, e.clientY);
+        cursorTrail.addClickBurst(e.clientX, e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('click', handleClick);
+    
+    // Start animation loop
+    cursorTrail.startAnimation();
+}
+
+function createCursorContainer() {
+    let container = document.getElementById('cursor-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'cursor-container';
+        container.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        `;
+        document.body.appendChild(container);
+    }
+    return container;
+}
+
+class CursorTrail {
+    constructor(container) {
+        this.container = container;
+        this.dots = [];
+        this.targetX = window.innerWidth / 2;
+        this.targetY = window.innerHeight / 2;
+        this.hue = 0;
+        this.velocity = 0;
+        this.mouseHistory = [];
+        
+        this.initializeDots();
+    }
+
+    initializeDots() {
+        const DOT_COUNT = 25;
+        const BASE_SIZE = 16;
+        
+        for (let i = 0; i < DOT_COUNT; i++) {
+            const dot = document.createElement('div');
+            dot.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                pointer-events: none;
+                will-change: transform;
+                transition: none;
+            `;
+            
+            this.container.appendChild(dot);
+            
+            this.dots.push({
+                element: dot,
+                x: this.targetX,
+                y: this.targetY,
+                size: Math.max(BASE_SIZE - i * 0.6, 4),
+                speed: 0.15 - i * 0.004,
+                opacity: Math.max(0.9 - i * 0.03, 0.1)
+            });
+        }
+    }
+
+    updateTarget(x, y) {
+        this.targetX = x;
+        this.targetY = y;
+        
+        // Update mouse history for velocity calculation
+        this.mouseHistory.push({ x, y, time: Date.now() });
+        if (this.mouseHistory.length > 3) {
+            this.mouseHistory.shift();
+        }
+        
+        // Calculate velocity
+        if (this.mouseHistory.length >= 2) {
+            const recent = this.mouseHistory[this.mouseHistory.length - 1];
+            const old = this.mouseHistory[0];
+            const distance = Math.sqrt(
+                Math.pow(recent.x - old.x, 2) + Math.pow(recent.y - old.y, 2)
+            );
+            const time = recent.time - old.time;
+            this.velocity = time > 0 ? distance / time * 10 : 0;
+        }
+    }
+
+    addClickBurst(x, y) {
+        // Create temporary burst particles
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: hsl(${this.hue}, 80%, 60%);
+                pointer-events: none;
+                z-index: 9998;
+                left: ${x}px;
+                top: ${y}px;
+                animation: burstParticle 0.8s ease-out forwards;
+                transform-origin: center;
+            `;
+            
+            const angle = (i / 8) * Math.PI * 2;
+            const distance = 50 + Math.random() * 30;
+            particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
+            particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 800);
+        }
+    }
+
+    startAnimation() {
+        const animate = () => {
+            this.hue = (this.hue + 1) % 360;
+            const color = `hsl(${this.hue}, 85%, 65%)`;
+            const velocityFactor = Math.min(this.velocity / 5, 1);
+            
+            this.dots.forEach((dot, index) => {
+                if (index === 0) {
+                    dot.x += (this.targetX - dot.x) * dot.speed;
+                    dot.y += (this.targetY - dot.y) * dot.speed;
+                } else {
+                    dot.x += (this.dots[index - 1].x - dot.x) * dot.speed;
+                    dot.y += (this.dots[index - 1].y - dot.y) * dot.speed;
+                }
+                
+                const adjustedOpacity = dot.opacity * (0.3 + velocityFactor * 0.7);
+                const adjustedSize = dot.size * (0.8 + velocityFactor * 0.4);
+                
+                dot.element.style.transform = `translate3d(${dot.x - adjustedSize/2}px, ${dot.y - adjustedSize/2}px, 0)`;
+                dot.element.style.width = `${adjustedSize}px`;
+                dot.element.style.height = `${adjustedSize}px`;
+                dot.element.style.backgroundColor = color;
+                dot.element.style.opacity = adjustedOpacity;
+                
+                if (index === 0) {
+                    dot.element.style.boxShadow = `0 0 ${20 + velocityFactor * 15}px ${color}`;
+                }
+            });
+            
+            this.velocity *= 0.95; // Decay velocity
+            requestAnimationFrame(animate);
+        };
+        
+        animate();
+    }
+}
+
+// ========================
+// 6. CLICK RIPPLE EFFECT
+// ========================
+function createClickRipple(x, y) {
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9997;
+        left: ${x}px;
+        top: ${y}px;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        animation: rippleExpand 0.6s ease-out forwards;
+    `;
+    
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+}
+
+// ========================
+// 7. TAB NAVIGATION SYSTEM
+// ========================
+function initializeTabNavigation() {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    if (!tabLinks.length || !contentSections.length) return;
+
+    function showSection(targetSectionId, updateHistory = true) {
+        contentSections.forEach(section => {
+            section.classList.remove('active-content');
+        });
+        tabLinks.forEach(link => {
+            link.classList.remove('active-tab');
+        });
+
+        const activeSection = document.getElementById(targetSectionId);
+        const activeLink = document.querySelector(`.tab-link[data-section="${targetSectionId}"]`);
+
+        if (activeSection) {
+            activeSection.classList.add('active-content');
+        }
+        if (activeLink) {
+            activeLink.classList.add('active-tab');
+            if (updateHistory) {
+                history.pushState(null, '', activeLink.getAttribute('href'));
+            }
+        }
+    }
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const sectionIdToShow = link.getAttribute('data-section');
+            showSection(sectionIdToShow, true);
+        });
+    });
+
+    function handleHashChange() {
+        const hash = window.location.hash;
+        let sectionIdToShow = 'about-content';
+        let targetHash = '#about';
+
+        if (hash) {
+            const correspondingLink = document.querySelector(`.tab-link[href="${hash}"]`);
+            if (correspondingLink) {
+                sectionIdToShow = correspondingLink.getAttribute('data-section');
+                targetHash = hash;
+            } else {
+                history.replaceState(null, '', targetHash);
+            }
+        } else {
+            history.replaceState(null, '', targetHash);
+        }
+        showSection(sectionIdToShow, false);
+    }
+
+    window.addEventListener('popstate', handleHashChange);
+    handleHashChange();
+}
+
+// ========================
+// 8. INTERACTIVE EFFECTS
+// ========================
+function initializeInteractiveEffects() {
+    // Enhanced hover effects for bio links
+    const bioLinks = document.querySelectorAll('.bio-link');
+    bioLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            link.style.transform = 'translateY(-3px) scale(1.02)';
+            link.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.25)';
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            link.style.transform = 'translateY(0) scale(1)';
+            link.style.boxShadow = '';
+        });
+    });
+
+    // Smooth scrolling for video carousel
+    const videoCarousel = document.querySelector('.video-carousel');
+    if (videoCarousel) {
+        videoCarousel.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            videoCarousel.scrollLeft += e.deltaY;
+        });
+    }
+
+    // Avatar hover effect
+    const avatar = document.getElementById('avatar');
+    if (avatar) {
+        avatar.addEventListener('mouseenter', () => {
+            avatar.style.transform = 'scale(1.05) rotate(5deg)';
+        });
+        
+        avatar.addEventListener('mouseleave', () => {
+            avatar.style.transform = 'scale(1) rotate(0deg)';
+        });
+    }
+}
+
+// ========================
+// 9. MODAL FUNCTIONALITY
+// ========================
+function initializeModalFunctionality() {
+    // Make modal functions globally available
+    window.openDreamModal = function() {
+        const modal = document.getElementById('dreamModal');
+        if (modal) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Add blur to container
+            const container = document.querySelector('.container');
+            if (container) {
+                container.classList.add('modal-open');
+            }
+        }
+    };
+
+    window.closeDreamModal = function() {
+        const modal = document.getElementById('dreamModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Remove blur from container
+            const container = document.querySelector('.container');
+            if (container) {
+                container.classList.remove('modal-open');
+            }
+        }
+    };
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById('dreamModal');
+        if (event.target === modal) {
+            window.closeDreamModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            window.closeDreamModal();
+        }
+    });
+}
+
+// ========================
+// 10. UTILITY FUNCTIONS
+// ========================
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// ========================
+// 11. RESPONSIVE HANDLING
+// ========================
+const handleResize = debounce(() => {
+    if (window.innerWidth <= 768) {
+        // Remove cursor effects on mobile
+        const cursorContainer = document.getElementById('cursor-container');
+        if (cursorContainer) {
+            cursorContainer.style.display = 'none';
+        }
+    } else {
+        // Re-enable cursor effects on desktop
+        const cursorContainer = document.getElementById('cursor-container');
+        if (cursorContainer) {
+            cursorContainer.style.display = 'block';
+        }
+    }
+    
+    // Recreate particles with new count
+    createBackgroundParticles();
+}, 250);
+
+window.addEventListener('resize', handleResize);
+
+// ========================
+// 12. PERFORMANCE OPTIMIZATION
+// ========================
+// Intersection Observer for performance optimization
+const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+        }
+    });
+}, observerOptions);
+
+// Observe elements when they come into view
+document.addEventListener('DOMContentLoaded', () => {
+    const elementsToObserve = document.querySelectorAll('.content-section, .bio-link, .video-carousel iframe');
+    elementsToObserve.forEach(el => observer.observe(el));
+});
+
     </script>
 </body>
 </html>
