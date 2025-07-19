@@ -446,7 +446,8 @@
 
         .tab-link:hover,
         .dream-link:hover,
-        .close-btn:hover {
+        .close-btn:hover,
+        .cursor-toggle-container .slider:hover { /* Added for among us cursor on hover */
             cursor: url(https://ani.cursors-4u.net/games/gam-16/gam1570.cur), auto !important;
             transform: scale(1.105);
         }
@@ -655,10 +656,14 @@
     </div>
 
     <script>
+    // Global variables to manage the current state of the cursor effects.
     let currentCursorController = null;
+    // Determines if the cursor is simple (false) or advanced (true)
     let isCursorOnTop = false;
 
+    // Main entry point for the script, runs after the HTML document is fully loaded.
     document.addEventListener('DOMContentLoaded', () => {
+        // Initialize all interactive components of the page.
         initializeInteractiveBackground();
         initializeTabNavigation();
         initializeInteractiveEffects();
@@ -666,35 +671,56 @@
         initializeCursorToggle();
         initializeClickEffect();
 
+        // Set the initial cursor effect based on the toggle's default state.
         switchCursorEffect();
     });
 
 
+    /**
+     * Manages the animated particle background on the canvas.
+     */
     function initializeInteractiveBackground() {
         const canvas = document.getElementById('interactive-canvas');
-        if (!canvas) return;
+        if (!canvas) return; // Exit if canvas element is not found
         const ctx = canvas.getContext('2d');
         let particlesArray;
 
+        // Object to store mouse coordinates.
         const mouse = { x: null, y: null, radius: 0 };
 
+        // Update mouse coordinates on move.
         window.addEventListener('mousemove', (event) => {
             mouse.x = event.clientX;
             mouse.y = event.clientY;
         });
 
+        // Reset mouse coordinates when the cursor leaves the window.
         window.addEventListener('mouseout', () => {
             mouse.x = null;
             mouse.y = null;
         });
 
+        /**
+         * Represents a single particle in the background animation.
+         */
         class Particle {
+            /**
+             * @param {number} x X-coordinate of the particle.
+             * @param {number} y Y-coordinate of the particle.
+             * @param {number} directionX Movement direction on the X-axis.
+             * @param {number} directionY Movement direction on the Y-axis.
+             * @param {number} size Size of the particle.
+             * @param {string} color Color of the particle.
+             */
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x; this.y = y;
                 this.directionX = directionX; this.directionY = directionY;
                 this.size = size; this.color = color;
             }
 
+            /**
+             * Draws the particle on the canvas.
+             */
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
@@ -702,7 +728,11 @@
                 ctx.fill();
             }
 
+            /**
+             * Updates the particle's position and handles interactions.
+             */
             update() {
+                // Reverse direction if particle hits canvas edges.
                 if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
                 if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
                 
@@ -710,24 +740,30 @@
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < mouse.radius + this.size) {
+                    // Push particle away from mouse (currently disabled by setting mouse.radius to 0).
                     if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 5;
                     if (mouse.x > this.x && this.x > this.size * 10) this.x -= 5;
                     if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 5;
                     if (mouse.y > this.y && this.y > this.size * 10) this.y -= 5;
                 }
 
+                // Move particle and redraw it.
                 this.x += this.directionX;
                 this.y += this.directionY;
                 this.draw();
             }
         }
 
+        /**
+         * Initializes or re-initializes the particles.
+         * Called on load and on window resize.
+         */
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            mouse.radius = 0;
+            mouse.radius = 0; // Set to 0 to disable mouse repulsion effect.
             particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            let numberOfParticles = (canvas.height * canvas.width) / 9000; // Responsive particle count.
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 1.5;
                 let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
@@ -739,13 +775,17 @@
             }
         }
 
+        /**
+         * Draws lines between nearby particles.
+         */
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
                 for (let b = a; b < particlesArray.length; b++) {
                     let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
+                    // If particles are close enough, draw a line.
                     if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000);
+                        opacityValue = 1 - (distance / 20000); // Line fades with distance.
                         ctx.strokeStyle = `rgba(200, 220, 255, ${opacityValue * 0.5})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
@@ -757,22 +797,32 @@
             }
         }
 
+        /**
+         * The main animation loop.
+         */
         function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            requestAnimationFrame(animate); // Creates a smooth animation loop.
+            ctx.clearRect(0, 0, innerWidth, innerHeight); // Clear canvas each frame.
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
             }
             connect();
         }
         
+        // Re-initialize canvas on window resize.
         window.addEventListener('resize', init);
-        init();
-        animate();
+        init(); // Initial setup.
+        animate(); // Start the animation.
     }
 
 
+    /**
+     * Controls the "Advanced" cursor with idle random movement.
+     */
     class AdvancedCursorController {
+        /**
+         * @param {HTMLElement} container The DOM element to contain cursor effects.
+         */
         constructor(container) {
             this.container = container;
             this.cursorTrail = new CursorTrail(this.container);
@@ -782,11 +832,15 @@
             this.randomCursorInterval = null;
             this.randomCursorAnimationId = null;
             this.isRandomMovementActive = false;
+            // Bind 'this' to event handlers to maintain context.
             this.handleMouseMove = this.handleMouseMove.bind(this);
             this.handleMouseLeave = this.handleMouseLeave.bind(this);
             this.handleMouseEnter = this.handleMouseEnter.bind(this);
         }
 
+        /**
+         * Activates the controller and its event listeners.
+         */
         start() {
             this.cursorTrail.startAnimation();
             window.addEventListener('mousemove', this.handleMouseMove);
@@ -795,6 +849,9 @@
             this.resetIdleTimer();
         }
 
+        /**
+         * Deactivates the controller and cleans up.
+         */
         stop() {
             this.cursorTrail.stopAnimation();
             window.removeEventListener('mousemove', this.handleMouseMove);
@@ -802,9 +859,13 @@
             document.body.removeEventListener('mouseenter', this.handleMouseEnter);
             this.stopRandomCursorMovement();
             clearTimeout(this.idleTimer);
-            this.container.innerHTML = '';
+            this.container.innerHTML = ''; // Clear cursor elements.
         }
 
+        /**
+         * Handles mouse movement events.
+         * @param {MouseEvent} e The mouse event object.
+         */
         handleMouseMove(e) {
             this.mouseX = e.clientX;
             this.mouseY = e.clientY;
@@ -815,20 +876,32 @@
             this.resetIdleTimer();
         }
 
+        /**
+         * Resets the timer that triggers idle mode.
+         */
         resetIdleTimer() {
             clearTimeout(this.idleTimer);
             this.idleTimer = setTimeout(() => this.startRandomCursorMovement(), 3000);
         }
 
+        /**
+         * Starts idle mode when the mouse leaves the window.
+         */
         handleMouseLeave() {
             this.startRandomCursorMovement();
         }
 
+        /**
+         * Stops idle mode when the mouse re-enters the window.
+         */
         handleMouseEnter() {
             this.stopRandomCursorMovement();
             this.resetIdleTimer();
         }
 
+        /**
+         * Starts the random movement animation for the cursor.
+         */
         startRandomCursorMovement() {
             if (this.isRandomMovementActive) return;
             this.isRandomMovementActive = true;
@@ -864,12 +937,15 @@
                 randomCursor.style.left = `${currentX}px`;
                 randomCursor.style.top = `${currentY}px`;
                 randomCursor.style.transform = `translate(-50%, -50%) rotate(${currentX * 0.5}deg)`;
-                this.cursorTrail.updateTarget(currentX, currentY);
+                this.cursorTrail.updateTarget(currentX, currentY); // Make trail follow random cursor.
                 this.randomCursorAnimationId = requestAnimationFrame(animateRandomly);
             };
             animateRandomly();
         }
 
+        /**
+         * Stops the random movement animation.
+         */
         stopRandomCursorMovement() {
             if (!this.isRandomMovementActive) return;
             this.isRandomMovementActive = false;
@@ -883,30 +959,53 @@
         }
     }
 
+    /**
+     * Controls the "Simple" cursor without idle movement.
+     */
     class SimpleCursorController {
+        /**
+         * @param {HTMLElement} container The DOM element to contain cursor effects.
+         */
         constructor(container) {
             this.container = container;
             this.cursorTrail = new CursorTrail(this.container);
             this.handleMouseMove = this.handleMouseMove.bind(this);
         }
 
+        /**
+         * Activates the controller.
+         */
         start() {
             this.cursorTrail.startAnimation();
             window.addEventListener('mousemove', this.handleMouseMove);
         }
 
+        /**
+         * Deactivates the controller and cleans up.
+         */
         stop() {
             this.cursorTrail.stopAnimation();
             window.removeEventListener('mousemove', this.handleMouseMove);
             this.container.innerHTML = '';
         }
 
+        /**
+         * Handles mouse movement events.
+         * @param {MouseEvent} e The mouse event object.
+         */
         handleMouseMove(e) {
             this.cursorTrail.updateTarget(e.clientX, e.clientY);
         }
     }
 
+    /**
+     * Represents the trail of dots that follows the cursor.
+     * Used by both Simple and Advanced controllers.
+     */
     class CursorTrail {
+        /**
+         * @param {HTMLElement} container The DOM element to contain the trail dots.
+         */
         constructor(container) {
             this.container = container;
             this.dots = [];
@@ -919,6 +1018,9 @@
             this.initializeDots();
         }
 
+        /**
+         * Creates the dot elements for the trail.
+         */
         initializeDots() {
             const DOT_COUNT = 25;
             const BASE_SIZE = 16;
@@ -935,6 +1037,11 @@
             }
         }
 
+        /**
+         * Updates the target position and calculates velocity.
+         * @param {number} x The new X-coordinate for the target.
+         * @param {number} y The new Y-coordinate for the target.
+         */
         updateTarget(x, y) {
             this.targetX = x; this.targetY = y;
             this.mouseHistory.push({ x, y, time: Date.now() });
@@ -948,12 +1055,16 @@
             }
         }
 
+        /**
+         * The main animation loop for the trail.
+         */
         startAnimation() {
             const animate = () => {
                 this.hue = (this.hue + 1) % 360;
                 const color = `hsl(${this.hue}, 85%, 65%)`;
                 const velocityFactor = Math.min(this.velocity / 5, 1);
                 
+                // Each dot follows the one in front of it.
                 this.dots.forEach((dot, index) => {
                     if (index === 0) {
                         dot.x += (this.targetX - dot.x) * dot.speed;
@@ -969,16 +1080,21 @@
                     dot.element.style.height = `${adjustedSize}px`;
                     dot.element.style.backgroundColor = color;
                     dot.element.style.opacity = adjustedOpacity;
-                    if (index === 0) {
+                    if (index === 0) { // Add a glow to the head of the trail.
                         dot.element.style.boxShadow = `0 0 ${20 + velocityFactor * 15}px ${color}`;
                     }
                 });
-                this.velocity *= 0.95;
+                this.velocity *= 0.95; // Gradually decrease velocity.
                 this.animationFrameId = requestAnimationFrame(animate);
             };
             animate();
         }
 
+        /**
+         * Creates a burst of particles on click.
+         * @param {number} x The X-coordinate of the click.
+         * @param {number} y The Y-coordinate of the click.
+         */
         addClickBurst(x, y) {
             for (let i = 0; i < 8; i++) {
                 const particle = document.createElement('div');
@@ -994,15 +1110,21 @@
                 particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
                 particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
                 document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 800);
+                setTimeout(() => particle.remove(), 800); // Clean up particle from DOM.
             }
         }
         
+        /**
+         * Stops the animation loop.
+         */
         stopAnimation() {
             cancelAnimationFrame(this.animationFrameId);
         }
     }
 
+    /**
+     * Initializes the toggle switch for changing cursor effects.
+     */
     function initializeCursorToggle() {
         const toggle = document.getElementById('cursor-toggle');
         
@@ -1014,12 +1136,15 @@
         });
     }
 
+    /**
+     * Switches between the Simple and Advanced cursor controllers.
+     */
     function switchCursorEffect() {
-        document.body.classList.toggle('cursor-on-top', isCursorOnTop);
-
         if (currentCursorController) {
-            currentCursorController.stop();
+            currentCursorController.stop(); // Stop the current controller.
         }
+
+        document.body.classList.toggle('cursor-on-top', isCursorOnTop);
 
         const container = document.getElementById('cursor-container');
         if (isCursorOnTop) {
@@ -1027,14 +1152,22 @@
         } else {
             currentCursorController = new SimpleCursorController(container);
         }
-        currentCursorController.start();
+        currentCursorController.start(); // Start the new controller.
     }
 
 
+    /**
+     * Initializes the tab navigation system.
+     */
     function initializeTabNavigation() {
         const tabLinks = document.querySelectorAll('.tab-link');
         const contentSections = document.querySelectorAll('.content-section');
 
+        /**
+         * Displays a specific content section and updates tab state.
+         * @param {string} targetSectionId The ID of the content section to show.
+         * @param {boolean} updateHistory Whether to update browser history or not.
+         */
         function showSection(targetSectionId, updateHistory = true) {
             contentSections.forEach(section => section.classList.remove('active-content'));
             tabLinks.forEach(link => link.classList.remove('active-tab'));
@@ -1045,6 +1178,7 @@
             if (activeSection) activeSection.classList.add('active-content');
             if (activeLink) {
                 activeLink.classList.add('active-tab');
+                // Update browser URL for deep linking if needed.
                 if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
             }
         }
@@ -1056,9 +1190,12 @@
             });
         });
 
+        /**
+         * Handles page load and back/forward button clicks.
+         */
         function handleHashChange() {
             const hash = window.location.hash;
-            let sectionIdToShow = 'about-content';
+            let sectionIdToShow = 'about-content'; // Default section.
             if (hash) {
                 const correspondingLink = document.querySelector(`.tab-link[href="${hash}"]`);
                 if (correspondingLink) {
@@ -1069,12 +1206,16 @@
         }
 
         window.addEventListener('popstate', handleHashChange);
-        handleHashChange();
+        handleHashChange(); // Set initial tab on page load.
     }
 
+    /**
+     * Initializes other minor interactive effects.
+     */
     function initializeInteractiveEffects() {
         const videoCarousel = document.querySelector('.video-carousel');
         if (videoCarousel) {
+            // Allows scrolling horizontally with the mouse wheel.
             videoCarousel.addEventListener('wheel', (e) => {
                 e.preventDefault();
                 videoCarousel.scrollLeft += e.deltaY;
@@ -1082,7 +1223,11 @@
         }
     }
 
+    /**
+     * Initializes all functionality for the modal pop-up.
+     */
     function initializeModalFunctionality() {
+        // Expose functions to the global scope to be called by onclick attributes.
         window.openDreamModal = function() {
             const modal = document.getElementById('dreamModal');
             if (modal) {
@@ -1099,12 +1244,14 @@
             }
         };
 
+        // Close modal if user clicks on the background overlay.
         window.addEventListener('click', (event) => {
             if (event.target === document.getElementById('dreamModal')) {
                 window.closeDreamModal();
             }
         });
 
+        // Close modal if user presses the Escape key.
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 window.closeDreamModal();
@@ -1112,12 +1259,18 @@
         });
     }
 
+    /**
+     * Initializes the click particle burst effect.
+     */
     function initializeClickEffect() {
         window.addEventListener('click', (event) => {
+            // Ensure a cursor controller is active.
             if (currentCursorController && currentCursorController.cursorTrail) {
+                // Prevent the effect from triggering on UI elements like the close button or slider.
                 if (event.target.classList.contains('close-btn') || event.target.classList.contains('slider')) {
                     return;
                 }
+                // Trigger the burst effect.
                 currentCursorController.cursorTrail.addClickBurst(event.clientX, event.clientY);
             }
         });
