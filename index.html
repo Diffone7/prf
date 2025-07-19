@@ -51,7 +51,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0; 
+            z-index: 10000; 
         }
         
         body.cursor-on-top #cursor-container {
@@ -481,7 +481,7 @@
             bottom: 0;
             background-color: rgba(255, 255, 255, 0.2);
             transition: .4s;
-            border-radius: 28px;
+            border-radius: 50%;
         }
         .cursor-toggle-container .slider:before {
             position: absolute;
@@ -656,10 +656,10 @@
     </div>
 
     <script>
-    // Global variables to manage the current state of the cursor effects.
+    // Global variable to manage the current state of the cursor effects.
     let currentCursorController = null;
-    // Determines if the cursor is simple (false) or advanced (true)
-    let isCursorOnTop = false;
+    // Determines if the random movement is active (true) or circular movement (false) when idle.
+    let isRandomMovementActiveOnIdle = false;
 
     // Main entry point for the script, runs after the HTML document is fully loaded.
     document.addEventListener('DOMContentLoaded', () => {
@@ -817,9 +817,9 @@
 
 
     /**
-     * Controls the "Advanced" cursor with idle random movement.
+     * Controls the cursor with random movement when idle.
      */
-    class AdvancedCursorController {
+    class RandomMovementController {
         /**
          * @param {HTMLElement} container The DOM element to contain cursor effects.
          */
@@ -831,7 +831,7 @@
             this.idleTimer = null;
             this.randomCursorInterval = null;
             this.randomCursorAnimationId = null;
-            this.isRandomMovementActive = false;
+            this.isMovementActive = false; // Flag to indicate if random movement is active
             // Bind 'this' to event handlers to maintain context.
             this.handleMouseMove = this.handleMouseMove.bind(this);
             this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -857,7 +857,7 @@
             window.removeEventListener('mousemove', this.handleMouseMove);
             document.body.removeEventListener('mouseleave', this.handleMouseLeave);
             document.body.removeEventListener('mouseenter', this.handleMouseEnter);
-            this.stopRandomCursorMovement();
+            this.stopIdleMovement(); // Consolidated stop function
             clearTimeout(this.idleTimer);
             this.container.innerHTML = ''; // Clear cursor elements.
         }
@@ -870,8 +870,8 @@
             this.mouseX = e.clientX;
             this.mouseY = e.clientY;
             this.cursorTrail.updateTarget(this.mouseX, this.mouseY);
-            if (this.isRandomMovementActive) {
-                this.stopRandomCursorMovement();
+            if (this.isMovementActive) {
+                this.stopIdleMovement();
             }
             this.resetIdleTimer();
         }
@@ -881,30 +881,30 @@
          */
         resetIdleTimer() {
             clearTimeout(this.idleTimer);
-            this.idleTimer = setTimeout(() => this.startRandomCursorMovement(), 3000);
+            this.idleTimer = setTimeout(() => this.startRandomMovement(), 3000);
         }
 
         /**
          * Starts idle mode when the mouse leaves the window.
          */
         handleMouseLeave() {
-            this.startRandomCursorMovement();
+            this.startRandomMovement();
         }
 
         /**
          * Stops idle mode when the mouse re-enters the window.
          */
         handleMouseEnter() {
-            this.stopRandomCursorMovement();
+            this.stopIdleMovement();
             this.resetIdleTimer();
         }
 
         /**
          * Starts the random movement animation for the cursor.
          */
-        startRandomCursorMovement() {
-            if (this.isRandomMovementActive) return;
-            this.isRandomMovementActive = true;
+        startRandomMovement() {
+            if (this.isMovementActive) return;
+            this.isMovementActive = true;
 
             const randomCursor = document.createElement('div');
             randomCursor.id = 'random-cursor';
@@ -944,11 +944,11 @@
         }
 
         /**
-         * Stops the random movement animation.
+         * Stops any active idle movement (random).
          */
-        stopRandomCursorMovement() {
-            if (!this.isRandomMovementActive) return;
-            this.isRandomMovementActive = false;
+        stopIdleMovement() {
+            if (!this.isMovementActive) return;
+            this.isMovementActive = false;
             clearInterval(this.randomCursorInterval);
             cancelAnimationFrame(this.randomCursorAnimationId);
             const randomCursor = document.getElementById('random-cursor');
@@ -960,24 +960,36 @@
     }
 
     /**
-     * Controls the "Simple" cursor without idle movement.
+     * Controls the cursor with continuous circular movement when idle.
      */
-    class SimpleCursorController {
+    class CircularMovementController {
         /**
          * @param {HTMLElement} container The DOM element to contain cursor effects.
          */
         constructor(container) {
             this.container = container;
             this.cursorTrail = new CursorTrail(this.container);
+            this.mouseX = window.innerWidth / 2;
+            this.mouseY = window.innerHeight / 2;
+            this.idleTimer = null;
+            this.circularMovementAnimationId = null; // For circular movement animation frame ID
+            this.circleAngle = 0; // Current angle for circular movement
+            this.isMovementActive = false; // Flag to indicate if circular movement is active
+            // Bind 'this' to event handlers to maintain context.
             this.handleMouseMove = this.handleMouseMove.bind(this);
+            this.handleMouseLeave = this.handleMouseLeave.bind(this);
+            this.handleMouseEnter = this.handleMouseEnter.bind(this);
         }
 
         /**
-         * Activates the controller.
+         * Activates the controller and its event listeners.
          */
         start() {
             this.cursorTrail.startAnimation();
             window.addEventListener('mousemove', this.handleMouseMove);
+            document.body.addEventListener('mouseleave', this.handleMouseLeave);
+            document.body.addEventListener('mouseenter', this.handleMouseEnter);
+            this.resetIdleTimer();
         }
 
         /**
@@ -986,7 +998,11 @@
         stop() {
             this.cursorTrail.stopAnimation();
             window.removeEventListener('mousemove', this.handleMouseMove);
-            this.container.innerHTML = '';
+            document.body.removeEventListener('mouseleave', this.handleMouseLeave);
+            document.body.removeEventListener('mouseenter', this.handleMouseEnter);
+            this.stopIdleMovement();
+            clearTimeout(this.idleTimer);
+            this.container.innerHTML = ''; // Clear cursor elements.
         }
 
         /**
@@ -994,13 +1010,73 @@
          * @param {MouseEvent} e The mouse event object.
          */
         handleMouseMove(e) {
-            this.cursorTrail.updateTarget(e.clientX, e.clientY);
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+            this.cursorTrail.updateTarget(this.mouseX, this.mouseY);
+            if (this.isMovementActive) {
+                this.stopIdleMovement();
+            }
+            this.resetIdleTimer();
+        }
+
+        /**
+         * Resets the timer that triggers idle mode.
+         */
+        resetIdleTimer() {
+            clearTimeout(this.idleTimer);
+            this.idleTimer = setTimeout(() => this.startCircularMovement(), 3000);
+        }
+
+        /**
+         * Starts idle mode when the mouse leaves the window.
+         */
+        handleMouseLeave() {
+            this.startCircularMovement();
+        }
+
+        /**
+         * Stops idle mode when the mouse re-enters the window.
+         */
+        handleMouseEnter() {
+            this.stopIdleMovement();
+            this.resetIdleTimer();
+        }
+
+        /**
+         * Starts the circular movement animation for the cursor.
+         */
+        startCircularMovement() {
+            if (this.isMovementActive) return;
+            this.isMovementActive = true;
+
+            const circleCenterX = window.innerWidth / 2;
+            const circleCenterY = window.innerHeight / 2;
+            const circleRadius = Math.min(window.innerWidth, window.innerHeight) * 0.2; // 20% of the smaller dimension
+
+            const animateCircularly = () => {
+                this.circleAngle += 0.02; // Adjust speed of rotation
+                const newX = circleCenterX + circleRadius * Math.cos(this.circleAngle);
+                const newY = circleCenterY + circleRadius * Math.sin(this.circleAngle);
+                
+                this.cursorTrail.updateTarget(newX, newY);
+                this.circularMovementAnimationId = requestAnimationFrame(animateCircularly);
+            };
+            animateCircularly();
+        }
+
+        /**
+         * Stops any active idle movement (circular).
+         */
+        stopIdleMovement() {
+            if (!this.isMovementActive) return;
+            this.isMovementActive = false;
+            cancelAnimationFrame(this.circularMovementAnimationId);
         }
     }
 
     /**
      * Represents the trail of dots that follows the cursor.
-     * Used by both Simple and Advanced controllers.
+     * Used by both RandomMovementController and CircularMovementController.
      */
     class CursorTrail {
         /**
@@ -1128,29 +1204,33 @@
     function initializeCursorToggle() {
         const toggle = document.getElementById('cursor-toggle');
         
-        isCursorOnTop = !toggle.checked;
+        // isRandomMovementActiveOnIdle is true if toggle is checked (random movement)
+        // isRandomMovementActiveOnIdle is false if toggle is unchecked (circular movement)
+        isRandomMovementActiveOnIdle = toggle.checked; 
         
         toggle.addEventListener('change', (e) => {
-            isCursorOnTop = !e.target.checked;
+            isRandomMovementActiveOnIdle = e.target.checked;
             switchCursorEffect();
         });
     }
 
     /**
-     * Switches between the Simple and Advanced cursor controllers.
+     * Switches between the CircularMovementController and RandomMovementController based on toggle state.
      */
     function switchCursorEffect() {
         if (currentCursorController) {
             currentCursorController.stop(); // Stop the current controller.
         }
 
-        document.body.classList.toggle('cursor-on-top', isCursorOnTop);
+        // The body.classList.toggle('cursor-on-top') was for the previous Advanced/Simple cursor logic.
+        // It's not directly related to the idle movement types, but kept for consistency if other styles depend on it.
+        // document.body.classList.toggle('cursor-on-top', isCursorOnTop); 
 
         const container = document.getElementById('cursor-container');
-        if (isCursorOnTop) {
-            currentCursorController = new AdvancedCursorController(container);
+        if (isRandomMovementActiveOnIdle) {
+            currentCursorController = new RandomMovementController(container);
         } else {
-            currentCursorController = new SimpleCursorController(container);
+            currentCursorController = new CircularMovementController(container);
         }
         currentCursorController.start(); // Start the new controller.
     }
