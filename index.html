@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTM'S BIO</title>
     <link rel="icon" href="https://claude.ai/images/claude_app_icon.png" type="image/png">
+    
     <meta property="og:title" content="Ntmc0987se" />
     <meta property="og:description" content="Đây là trang giới thiệu về Minh" />
     <meta property="og:image" content="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/505944969_1047947857294164_9159577840644626171_n.jpg?stp=c4.0.250.250a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFd4zuZ1U-Q34ERqtZCy_k5TMYBxbNJWA9MxgHFs0lYD33ZwNo_Evo3oK2xfllpXtArMkcG7RNhwwmjVmLA2EmX&_nc_ohc=I6IFYAs7eDkQ7kNvwEQs9n6&_nc_oc=AdnILOp9PjT0WRM-gMvR0xFvmo78cP1H6zI9R0rlK1pYGjfSCbEzuSPKy1JYeE_GlJs&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=x6KB_LOk0LLkAIiuJ0rCNw&oh=00_AfTYCnIMKh-I0DSxRYm9RB342jicfcF4_L5M6MVIeq3YyA&oe=687A38BB" />
@@ -26,125 +27,35 @@
 
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #1a1a2e; 
             color: #fff;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            cursor: none;
+            cursor: none; 
         }
 
-        /* Enhanced Background Effects */
-        .background-effects {
+        #interactive-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
+            z-index: 0; 
         }
 
-        /* Animated Particles */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFloat 8s ease-in-out infinite;
-        }
-
-        .particle-1 {
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.4);
-            animation-duration: 6s;
-        }
-
-        .particle-2 {
-            width: 8px;
-            height: 8px;
-            background: rgba(78, 205, 196, 0.3);
-            animation-duration: 10s;
-        }
-
-        .particle-3 {
-            width: 6px;
-            height: 6px;
-            background: rgba(69, 183, 209, 0.3);
-            animation-duration: 12s;
-        }
-
-        @keyframes particleFloat {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0.6;
-            }
-            25% { 
-                transform: translateY(-30px) rotate(90deg);
-                opacity: 1;
-            }
-            50% { 
-                transform: translateY(-15px) rotate(180deg);
-                opacity: 0.8;
-            }
-            75% { 
-                transform: translateY(-25px) rotate(270deg);
-                opacity: 0.9;
-            }
-        }
-
-        /* Interactive Wave Effect */
-        .wave-effect {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: waveAnimation 4s ease-in-out infinite;
-        }
-
-        @keyframes waveAnimation {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-            50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
-        }
-
-        /* Glowing Orbs */
-        .glowing-orbs {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-            animation: orbFloat 15s ease-in-out infinite;
-            filter: blur(1px);
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(-20px, -30px) scale(1.2); }
-            50% { transform: translate(20px, -20px) scale(0.8); }
-            75% { transform: translate(-15px, 25px) scale(1.1); }
-        }
-
-        /* Optimized Cursor Effect */
-        .cursor-container {
+        #cursor-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 0; 
+        }
+        
+        body.cursor-on-top #cursor-container {
+            z-index: 10000;
         }
 
         .cursor-dot {
@@ -155,77 +66,21 @@
             will-change: transform, opacity;
             transition: none;
         }
-
-        .cursor-trail {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-glow {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: all 0.1s ease;
-        }
-
-        /* Click Ripple Effect */
-        .click-ripple {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9997;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            animation: rippleEffect 0.6s ease-out;
-        }
-
-        @keyframes rippleEffect {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(3);
-                opacity: 0;
-            }
-        }
-
-        /* Mouse Follower Particles */
-        .mouse-particles {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9996;
-        }
-
-        .mouse-particle {
+        
+        .cursor-shape {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6);
             pointer-events: none;
-            animation: mouseParticleFloat 2s ease-out forwards;
+            will-change: transform, opacity;
+            transition: opacity 0.5s ease-out;
+            background-color: hsl(var(--hue), 85%, 65%);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
         }
+        .cursor-shape.circle { border-radius: 50%; }
+        .cursor-shape.square { border-radius: 0; }
 
-        @keyframes mouseParticleFloat {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(0) translateY(-50px);
-                opacity: 0;
-            }
-        }
-
-        /* Glass morphism container */
         .container {
+            position: relative;
+            z-index: 10;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -236,17 +91,16 @@
             width: 90%;
             margin: 40px auto;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
         }
-
+        
         .container.modal-open {
             filter: blur(3px);
             transform: scale(0.98);
             opacity: 0.7;
         }
-
+        
         .container::before {
             content: '';
             position: absolute;
@@ -257,7 +111,6 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
         }
 
-        /* Profile section improvements */
         .profile-section {
             text-align: center;
             padding-bottom: 40px;
@@ -270,7 +123,7 @@
             display: inline-block;
             margin-bottom: 20px;
         }
-
+        
         .avatar-ring {
             position: absolute;
             top: -10px;
@@ -278,13 +131,23 @@
             width: calc(100% + 20px);
             height: calc(100% + 20px);
             border-radius: 50%;
-            background: conic-gradient(from 0deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #ff6b6b);
-            animation: rotate 3s linear infinite;
+            overflow: hidden;
+            background: transparent;
+            transform: translateZ(0);
         }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 20%, hsla(300, 85%, 65%, 0.7), transparent 40%),
+                radial-gradient(circle at 80% 30%, hsla(180, 90%, 60%, 0.8), transparent 40%),
+                radial-gradient(circle at 75% 80%, hsla(60, 95%, 60%, 0.75), transparent 40%),
+                radial-gradient(circle at 25% 75%, hsla(240, 88%, 70%, 0.8), transparent 40%);
+            animation: aurora-rotate 10s linear infinite;
         }
 
         #avatar {
@@ -297,7 +160,6 @@
             z-index: 2;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         #avatar:hover {
             transform: scale(1.05);
             border-color: rgba(255, 255, 255, 0.6);
@@ -311,7 +173,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: none;
             letter-spacing: -0.5px;
         }
 
@@ -324,7 +185,6 @@
             font-weight: 400;
         }
 
-        /* Modern tab navigation */
         .tab-navigation {
             display: flex;
             justify-content: center;
@@ -347,53 +207,37 @@
             position: relative;
             z-index: 2;
         }
-
         .tab-link:hover {
             color: #fff;
             background: rgba(255, 255, 255, 0.1);
         }
-
         .tab-link.active-tab {
             color: #fff;
             background: rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Content sections with smooth transitions */
         .content-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: absolute;
-            width: calc(100% - 80px);
-            pointer-events: none;
+            display: none;
         }
-
         .content-section.active-content {
-            opacity: 1;
-            transform: translateY(0);
-            position: relative;
-            width: 100%;
-            pointer-events: auto;
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
-
         .content-wrapper {
             position: relative;
             min-height: 200px;
         }
 
-        /* About section styling */
         .notes-section {
             text-align: center;
         }
-
         .notes-section p {
             line-height: 1.8;
             opacity: 0.9;
             margin-bottom: 16px;
             font-size: 1.05em;
         }
-
         .dream-link {
             color: #4ecdc4;
             text-decoration: none;
@@ -401,11 +245,9 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-
         .dream-link:hover {
             color: #45b7d1;
         }
-
         .dream-link::after {
             content: '';
             position: absolute;
@@ -416,20 +258,16 @@
             background: linear-gradient(90deg, #4ecdc4, #45b7d1);
             transition: width 0.3s ease;
         }
-
         .dream-link:hover::after {
             width: 100%;
         }
 
-        /* Enhanced links section */
         .links-section {
             text-align: left;
         }
-
         .bio-link {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
             color: #fff;
             padding: 18px 24px;
             margin-bottom: 16px;
@@ -442,7 +280,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .bio-link::before {
             content: '';
             position: absolute;
@@ -453,27 +290,22 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: left 0.5s ease;
         }
-
         .bio-link:hover::before {
             left: 100%;
         }
-
         .bio-link:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             border-color: rgba(255, 255, 255, 0.3);
         }
-
         .bio-link.facebook { background: linear-gradient(135deg, #3b5998, #4c70ba); }
         .bio-link.discord { background: linear-gradient(135deg, #5865f2, #4752c4); }
         .bio-link.website { background: linear-gradient(135deg, #28a745, #20c997); }
         .bio-link.email { background: linear-gradient(135deg, #dc3545, #e74c3c); }
 
-        /* YouTube section improvements */
         .youtube-section {
             text-align: center;
         }
-
         .video-carousel {
             display: flex;
             overflow-x: auto;
@@ -483,37 +315,10 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(78, 205, 196, 0.6) rgba(255, 255, 255, 0.1);
         }
-
-        .video-carousel::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .video-carousel::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .video-carousel::-webkit-scrollbar-thumb {
-            background: linear-gradient(90deg, #4ecdc4, #45b7d1);
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 8px rgba(78, 205, 196, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .video-carousel::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(90deg, #45b7d1, #4ecdc4);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.5);
-            transform: scaleY(1.2);
-        }
-
-        .video-carousel::-webkit-scrollbar-thumb:active {
-            background: linear-gradient(90deg, #3aa89f, #3a9bc1);
-            box-shadow: 0 2px 6px rgba(78, 205, 196, 0.7);
-        }
-
+        .video-carousel::-webkit-scrollbar { height: 10px; }
+        .video-carousel::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .video-carousel::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #4ecdc4, #45b7d1); border-radius: 10px; }
+        
         .video-carousel iframe {
             flex: 0 0 auto;
             width: 320px;
@@ -524,12 +329,10 @@
             scroll-snap-align: start;
             transition: transform 0.3s ease;
         }
-
         .video-carousel iframe:hover {
             transform: scale(1.02);
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -541,14 +344,8 @@
             background-color: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            animation: fadeIn 0.3s ease-out;
+            animation: modalFadeIn 0.3s ease-out;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .modal-content {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -567,15 +364,24 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes slideIn {
-            from { 
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-            to { 
-                transform: translateY(0);
-                opacity: 1;
-            }
+        /* Custom scrollbar for dream modal */
+        .modal-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #4ecdc4, #45b7d1);
+            border-radius: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #45b7d1, #4ecdc4);
         }
 
         .close-btn {
@@ -587,22 +393,7 @@
             color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
         }
-
-        .close-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
         .modal-title {
             text-align: center;
             font-size: 2.5em;
@@ -611,40 +402,30 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
         }
-
         .modal-body {
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
         }
-
         .left-section, .right-section {
             flex: 1;
             min-width: 300px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 15px;
             padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
-
         .left-section h3, .right-section h3 {
             text-align: center;
             font-size: 1.8em;
             margin-bottom: 20px;
             color: #4ecdc4;
-            text-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
         }
-
         .spec-table {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-
         .spec-row {
             display: flex;
             justify-content: space-between;
@@ -652,101 +433,107 @@
             padding: 12px 15px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
-
-        .spec-row:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
         .spec-label {
             font-weight: 600;
             color: #f0f0f0;
-            min-width: 120px;
         }
-
         .spec-value {
             text-align: right;
             color: #4ecdc4;
             font-weight: 500;
-            flex: 1;
         }
 
-        /* Mobile Responsive */
+        .tab-link:hover,
+        .dream-link:hover,
+        .close-btn:hover {
+            cursor: url(https://ani.cursors-4u.net/games/gam-16/gam1570.cur), auto !important;
+            transform: scale(1.105);
+        }
+        
+        .cursor-toggle-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cursor-toggle-container .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        .cursor-toggle-container .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .cursor-toggle-container .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 28px;
+        }
+        .cursor-toggle-container .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        .cursor-toggle-container input:checked + .slider {
+            background-color: #4ecdc4;
+        }
+        .cursor-toggle-container input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        
         @media (max-width: 768px) {
-            body {
-                cursor: default;
-            }
+            body { cursor: default !important; }
+            #cursor-container { display: block !important; } 
+            .cursor-toggle-container { display: flex !important; }
             
-            .cursor-container,
-            .cursor-trail,
-            .cursor-glow,
-            .mouse-particles {
-                display: none !important;
-            }
-            
-            .container {
-                padding: 24px;
-                margin: 20px auto;
-                border-radius: 20px;
-            }
-
-            .name {
-                font-size: 2.2em;
-            }
-
-            .tagline {
-                font-size: 1em;
-            }
-
-            .tab-navigation {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .tab-link {
-                padding: 14px 20px;
-            }
-
-            .bio-link {
-                padding: 16px 20px;
-                font-size: 1em;
-            }
-
-            .video-carousel iframe {
-                width: 280px;
-                height: 158px;
-            }
-
-            #avatar {
-                width: 130px;
-                height: 130px;
-            }
-
-            .modal-content {
-                margin: 5% auto;
-                padding: 20px;
-                width: 95%;
-            }
-
-            .modal-title {
-                font-size: 2em;
-            }
-
-            .modal-body {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .left-section, .right-section {
-                min-width: auto;
-            }
+            .container { padding: 24px; margin: 20px auto; }
+            .name { font-size: 2.2em; }
+            .tagline { font-size: 1em; }
+            .tab-navigation { flex-direction: column; gap: 8px; }
+            .video-carousel iframe { width: 280px; height: 158px; }
+            #avatar { width: 130px; height: 130px; }
+            .modal-body { flex-direction: column; }
         }
+
+        @keyframes aurora-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         @keyframes burstParticle {
             0% {
                 transform: translate(-50%, -50%) scale(1);
@@ -757,841 +544,584 @@
                 opacity: 0;
             }
         }
-
-        @keyframes rippleExpand {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(3);
-                opacity: 0;
-            }
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(-20px, -30px) scale(1.2); }
-            50% { transform: translate(20px, -20px) scale(0.8); }
-            75% { transform: translate(-15px, 25px) scale(1.1); }
-        }
-
-        @keyframes waveAnimation {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
-            50% { transform: scale(1.1) rotate(180deg); opacity: 0.4; }
-        }
-
-        .animate {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Custom Cursor Shapes */
-        .cursor-shape {
-            position: absolute;
-            pointer-events: none;
-            will-change: transform, opacity;
-            transition: opacity 0.5s ease-out;
-            background-color: hsl(var(--hue), 85%, 65%);
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-        }
-
-        .cursor-shape.circle {
-            border-radius: 50%;
-        }
-
-        .cursor-shape.square {
-            border-radius: 0;
-        }
-
-        .cursor-shape.triangle {
-            width: 0;
-            height: 0;
-            background-color: transparent;
-            border-left: var(--size) solid transparent;
-            border-right: var(--size) solid transparent;
-            border-bottom: calc(var(--size) * 1.732) solid hsl(var(--hue), 85%, 65%); /* Equilateral triangle */
-        }
-
-        .cursor-shape.hexagon {
-            width: calc(var(--size) * 2);
-            height: calc(var(--size) * 1.732); /* height = side * sqrt(3) */
-            background-color: hsl(var(--hue), 85%, 65%);
-            position: relative;
-            transform: rotate(90deg); /* To make it stand upright */
-        }
-        .cursor-shape.hexagon::before,
-        .cursor-shape.hexagon::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            border-left: var(--size) solid transparent;
-            border-right: var(--size) solid transparent;
-        }
-        .cursor-shape.hexagon::before {
-            bottom: 100%;
-            border-bottom: calc(var(--size) * 0.866) solid hsl(var(--hue), 85%, 65%); /* height = side * sqrt(3)/2 */
-        }
-        .cursor-shape.hexagon::after {
-            top: 100%;
-            border-top: calc(var(--size) * 0.866) solid hsl(var(--hue), 85%, 65%);
-        }
-
-        .cursor-shape.pentagon {
-            width: 0;
-            height: 0;
-            background-color: transparent;
-            border-style: solid;
-            border-width: 0 calc(var(--size) * 0.951) calc(var(--size) * 0.688) calc(var(--size) * 0.951); /* Calculated for a regular pentagon */
-            border-color: transparent transparent hsl(var(--hue), 85%, 65%) transparent;
-            transform: rotate(18deg); /* To make it stand upright */
-        }
-
-        .tab-link:hover,
-        .dream-link:hover,
-        .close-btn:hover {
-    cursor: url(https://ani.cursors-4u.net/games/gam-16/gam1570.cur), auto !important;
-}
-
-        .tab-link:hover,.close-btn:hover,.tab-link:hover {
-          transform: scale(1.105);
-        }
-
     </style>
 </head>
 <body>
+    <canvas id="interactive-canvas"></canvas>
+    
+    <div id="cursor-container"></div>
+
+    <div class="cursor-toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="cursor-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
     <div id="app">
-    <div class="particles"></div>
-
-    <div class="container">
-        <div class="profile-section">
-            <div class="avatar-container">
-                <div class="avatar-ring"></div>
-                <img id="avatar" src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/505944969_1047947857294164_9159577840644626171_n.jpg?stp=c4.0.250.250a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFd4zuZ1U-Q34ERqtZCy_k5TMYBxbNJWA9MxgHFs0lYD33ZwNo_Evo3oK2xfllpXtArMkcG7RNhwwmjVmLA2EmX&_nc_ohc=I6IFYAs7eDkQ7kNvwEQs9n6&_nc_oc=AdnILOp9PjT0WRM-gMvR0xFvmo78cP1H6zI9R0rlK1pYGjfSCbEzuSPKy1JYeE_GlJs&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=x6KB_LOk0LLkAIiuJ0rCNw&oh=00_AfTYCnIMKh-I0DSxRYm9RB342jicfcF4_L5M6MVIeq3YyA&oe=687A38BB" alt="Avatar">
-            </div>
+        <div class="container">
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <div class="avatar-ring"></div>
+                    <img id="avatar" src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/505944969_1047947857294164_9159577840644626171_n.jpg?stp=c4.0.250.250a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFd4zuZ1U-Q34ERqtZCy_k5TMYBxbNJWA9MxgHFs0lYD33ZwNo_Evo3oK2xfllpXtArMkcG7RNhwwmjVmLA2EmX&_nc_ohc=I6IFYAs7eDkQ7kNvwEQs9n6&_nc_oc=AdnILOp9PjT0WRM-gMvR0xFvmo78cP1H6zI9R0rlK1pYGjfSCbEzuSPKy1JYeE_GlJs&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=x6KB_LOk0LLkAIiuJ0rCNw&oh=00_AfTYCnIMKh-I0DSxRYm9RB342jicfcF4_L5M6MVIeq3YyA&oe=687A38BB" alt="Avatar">
+                </div>
                 <h1 class="name" lang="vi">Nguyễn Tiến Minh</h1>
-            <p class="tagline">Not even the hardest rain can cleanse my misery, nor can the brightest sun pierce the darkness of my life.</p>
+                <p class="tagline">Not even the hardest rain can cleanse my misery, nor can the brightest sun pierce the darkness of my life.</p>
+            </div>
+
+            <nav class="tab-navigation">
+                <a href="#about" class="tab-link" data-section="about-content">About</a>
+                <a href="#contact" class="tab-link" data-section="contact-content">Contact</a>
+                <a href="#youtube" class="tab-link" data-section="youtube-content">Youtube</a>
+            </nav>
+
+            <div class="content-wrapper">
+                <div id="about-content" class="content-section">
+                    <div class="notes-section">
+                        <p>Hobbies: Playing games, listening to music, and working out when I have free time.</p>
+                        <p>Time zone: UTC+7</p>
+                        <p>Dream: <a href="#" onclick="openDreamModal()" class="dream-link">A new PC and a new phone.</a></p>
+                        <p>Birthday: 18/10</p>
+                        <p>Thanks for visiting my page, and have a great day!</p>
+                    </div>
+                </div>
+
+                <div id="contact-content" class="content-section">
+                    <div class="links-section">
+                        <a href="https://www.facebook.com/nm0987f" target="_blank" class="bio-link facebook">Facebook</a>
+                        <a href="https://discord.com/users/1257293493462765599" target="_blank" class="bio-link discord">Discord</a>
+                        <a href="https://ntmc0987se.github.io/bio/" target="_blank" class="bio-link website">Website</a>
+                        <a href="mailto:etcxorch0987@gmail.com" class="bio-link email">Email</a>
+                    </div>
+                </div>
+
+                <div id="youtube-content" class="content-section">
+                    <div class="youtube-section">
+                        <div class="video-carousel">
+                            <iframe src="https://www.youtube.com/embed/grKUu9CpJdM" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/0qRg8kn1SXg" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/nSk_FzlSOhI" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/7VXNkfE5U2c" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/mUP7EKZWUdQ" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/g_vLIAXurig" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/fE3OU5FqY0c" allow="fullscreen"></iframe>
+                            <iframe src="https://www.youtube.com/embed/8GW6sLrK40k" allow="fullscreen"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <nav class="tab-navigation">
-            <a href="#about" class="tab-link" data-section="about-content">About</a>
-            <a href="#contact" class="tab-link" data-section="contact-content">Contact</a>
-            <a href="#youtube" class="tab-link" data-section="youtube-content">Youtube</a>
-        </nav>
-
-        <div class="content-wrapper">
-            <div id="about-content" class="content-section">
-                <div class="notes-section">
-                    <p>
-                        Hobbies: Playing games, listening to music, and working out when I have free time.
-                    </p>
-                    <p>
-                        Time zone: UTC+7
-                    </p>
-                    <p>
-                        Dream: <a href="#" onclick="openDreamModal()" class="dream-link">A new PC and a new phone.</a>
-                    </p>
-                    <p>
-                        Birthday: 18/10
-                    </p>
-                    <p>
-                        Thanks for visiting my page, and have a great day!
-                    </p>
-                </div>
-            </div>
-
-            <div id="contact-content" class="content-section">
-                <div class="links-section">
-                    <a href="https://www.facebook.com/nm0987f" target="_blank" class="bio-link facebook">Facebook</a>
-                    <a href="https://discord.com/users/1257293493462765599" target="_blank" class="bio-link discord">Discord</a>
-                    <a href="https://ntmc0987se.github.io/bio/" target="_blank" class="bio-link website">Website</a>
-                    <a href="mailto:etcxorch0987@gmail.com" class="bio-link email">Email</a>
-                </div>
-            </div>
-
-            <div id="youtube-content" class="content-section">
-                <div class="youtube-section">
-                    <div class="video-carousel">
-                        <iframe src="https://www.youtube.com/embed/grKUu9CpJdM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/0qRg8kn1SXg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/nSk_FzlSOhI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/7VXNkfE5U2c" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/mUP7EKZWUdQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/g_vLIAXurig" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/fE3OU5FqY0c" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/8GW6sLrK40k" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div id="dreamModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeDreamModal()">&times;</span>
+                <h2 class="modal-title">Setup</h2>
+                <div class="modal-body">
+                    <div class="left-section">
+                        <h3>...</h3>
+                        <div class="spec-table">
+                            <div class="spec-row"><span class="spec-label">Model name:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">tempered glass:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Screen:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Chip:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Security:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Internal storage, RAM:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Rear camera:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Front camera:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Pin:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Charger:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Water resistance:</span><span class="spec-value">IP68/IP69</span></div>
+                            <div class="spec-row"><span class="spec-label">Operating system:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Update support:</span><span class="spec-value">...</span></div>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <h3>PC Configuration</h3>
+                        <div class="spec-table">
+                            <div class="spec-row"><span class="spec-label">CPU:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">RAM:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">VGA:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Heatsink:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Case:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">PSU:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Monitor:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Keyboard:</span><span class="spec-value">...</span></div>
+                            <div class="spec-row"><span class="spec-label">Mouse:</span><span class="spec-value">...</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dream Modal -->
-    <div id="dreamModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeDreamModal()">&times;</span>
-            <h2 class="modal-title">Setup</h2>
-            
-            <div class="modal-body">
-                <div class="left-section">
-                    <h3>...</h3>
-                    <div class="spec-table">
-                        <div class="spec-row">
-                            <span class="spec-label">Model name:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">tempered glass:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Screen:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Chip:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Security:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Internal storage, RAM:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Rear camera:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Front camera:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Pin:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Charger:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Water resistance:</span>
-                            <span class="spec-value">IP68/IP69</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Operating system:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Update support:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="right-section">
-                    <h3>PC Configuration</h3>
-                    <div class="spec-table">
-                        <div class="spec-row">
-                            <span class="spec-label">CPU:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">RAM:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">VGA:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Heatsink:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Case:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">PSU:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Monitor:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Keyboard:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Mouse:</span>
-                            <span class="spec-value">...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
     <script>
-// ========================
-// 1. MAIN INITIALIZATION
-// ========================
-document.addEventListener('DOMContentLoaded', () => {
-    initializeAllComponents();
-});
+    let currentCursorController = null;
+    let isCursorOnTop = false;
 
-function initializeAllComponents() {
-    createBackgroundParticles();
-    initializeCursorEffect();
-    initializeTabNavigation();
-    initializeInteractiveEffects();
-    initializeModalFunctionality();
-    createBackgroundOrbs();
-    initializeWaveEffect();
-}
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeInteractiveBackground();
+        initializeTabNavigation();
+        initializeInteractiveEffects();
+        initializeModalFunctionality();
+        initializeCursorToggle();
+        initializeClickEffect();
 
-// ========================
-// 2. BACKGROUND PARTICLES SYSTEM
-// ========================
-function createBackgroundParticles() {
-    const particlesContainer = document.querySelector('.particles');
-    if (!particlesContainer) return;
+        switchCursorEffect();
+    });
 
-    const particleCount = Math.min(window.innerWidth / 20, 60); // Adaptive particle count
-    const particleTypes = ['particle-1', 'particle-2', 'particle-3'];
-    
-    particlesContainer.innerHTML = '';
 
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-        
-        particle.className = `particle ${type}`;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 8 + 's';
-        particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-        particle.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 0.5})`;
-        
-        particlesContainer.appendChild(particle);
-    }
-}
+    function initializeInteractiveBackground() {
+        const canvas = document.getElementById('interactive-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
 
-// ========================
-// 3. BACKGROUND ORBS SYSTEM
-// ========================
-function createBackgroundOrbs() {
-    let orbsContainer = document.querySelector('.glowing-orbs');
-    if (!orbsContainer) {
-        orbsContainer = document.createElement('div');
-        orbsContainer.className = 'glowing-orbs';
-        orbsContainer.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; overflow: hidden;
-        `;
-        document.body.appendChild(orbsContainer);
-    }
+        const mouse = { x: null, y: null, radius: 0 };
 
-    const orbCount = 8;
-    for (let i = 0; i < orbCount; i++) {
-        const orb = document.createElement('div');
-        orb.className = 'orb';
-        const size = Math.random() * 200 + 100;
-        orb.style.cssText = `
-            position: absolute; width: ${size}px; height: ${size}px;
-            left: ${Math.random() * window.innerWidth}px; top: ${Math.random() * window.innerHeight}px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 150)}, ${Math.floor(Math.random() * 100 + 200)}, 0.1) 0%, transparent 70%);
-            animation: orbFloat ${12 + Math.random() * 8}s ease-in-out infinite;
-            animation-delay: ${Math.random() * 5}s;
-            filter: blur(${Math.random() * 2 + 1}px);
-        `;
-        orbsContainer.appendChild(orb);
-    }
-}
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
 
-// ========================
-// 4. WAVE EFFECT SYSTEM
-// ========================
-function initializeWaveEffect() {
-    let waveContainer = document.querySelector('.wave-effect');
-    if (!waveContainer) {
-        waveContainer = document.createElement('div');
-        waveContainer.className = 'wave-effect';
-        waveContainer.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
-            animation: waveAnimation 6s ease-in-out infinite;
-        `;
-        document.body.appendChild(waveContainer);
-    }
-}
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
-// ========================
-// 5. OPTIMIZED CURSOR EFFECT
-// ========================
-function initializeCursorEffect() {
-    if (window.innerWidth <= 768) return;
-
-    const cursorContainer = createCursorContainer();
-    const cursorTrail = new CursorTrail(cursorContainer);
-    
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let idleTimer = null;
-    let randomCursorInterval = null;
-    let randomCursorAnimationId = null;
-
-    const handleMouseMove = throttle((e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        cursorTrail.updateTarget(mouseX, mouseY);
-        
-        stopRandomCursorMovement();
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => {
-            if (window.innerWidth > 768) {
-                startRandomCursorMovement();
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y;
+                this.directionX = directionX; this.directionY = directionY;
+                this.size = size; this.color = color;
             }
-        }, 3000);
 
-    }, 16);
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
 
-    const handleClick = (e) => {
-        createClickRipple(e.clientX, e.clientY);
-        cursorTrail.addClickBurst(e.clientX, e.clientY);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('click', handleClick);
-    cursorTrail.startAnimation();
-
-    document.body.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 768) {
-            startRandomCursorMovement();
-        }
-    });
-
-    document.body.addEventListener('mouseenter', () => {
-        stopRandomCursorMovement();
-        clearTimeout(idleTimer);
-    });
-
-    function generateRandomShape() {
-        const shapes = ['circle', 'square', 'triangle', 'hexagon', 'pentagon'];
-        return shapes[Math.floor(Math.random() * shapes.length)];
-    }
-
-    function startRandomCursorMovement() {
-        if (randomCursorInterval) return;
-
-        const randomCursor = document.createElement('div');
-        randomCursor.id = 'random-cursor';
-        randomCursor.style.cssText = `
-            position: fixed; pointer-events: none; z-index: 10000;
-            opacity: 0; transition: opacity 0.5s ease-in-out;
-        `;
-        document.body.appendChild(randomCursor);
-
-        let currentX = mouseX;
-        let currentY = mouseY;
-        let targetX = Math.random() * window.innerWidth;
-        let targetY = Math.random() * window.innerHeight;
-        let hue = 0;
-
-        randomCursorInterval = setInterval(() => {
-            targetX = Math.random() * window.innerWidth;
-            targetY = Math.random() * window.innerHeight;
-            
-            const size = 15 + Math.random() * 15;
-            const shape = generateRandomShape();
-            hue = (hue + 20) % 360;
-            randomCursor.style.setProperty('--hue', hue);
-            randomCursor.style.setProperty('--size', `${size / 2}px`);
-            randomCursor.className = `cursor-shape ${shape}`;
-            randomCursor.style.width = `${size}px`;
-            randomCursor.style.height = `${size}px`;
-            randomCursor.style.opacity = 1;
-        }, 2500);
-
-        function animateRandomly() {
-            currentX += (targetX - currentX) * 0.02;
-            currentY += (targetY - currentY) * 0.02;
-            
-            randomCursor.style.left = `${currentX}px`;
-            randomCursor.style.top = `${currentY}px`;
-            randomCursor.style.transform = `translate(-50%, -50%) rotate(${currentX * 0.5}deg)`;
-            
-            // KEY CHANGE: Make the trail follow the random cursor
-            cursorTrail.updateTarget(currentX, currentY);
-            
-            randomCursorAnimationId = requestAnimationFrame(animateRandomly);
-        }
-        animateRandomly();
-    }
-
-    function stopRandomCursorMovement() {
-        if (randomCursorInterval) {
-            clearInterval(randomCursorInterval);
-            randomCursorInterval = null;
-        }
-        if (randomCursorAnimationId) {
-            cancelAnimationFrame(randomCursorAnimationId);
-            randomCursorAnimationId = null;
-        }
-        const randomCursor = document.getElementById('random-cursor');
-        if (randomCursor) {
-            randomCursor.style.opacity = 0;
-            setTimeout(() => randomCursor.remove(), 500);
-        }
-    }
-}
-
-function createCursorContainer() {
-    let container = document.getElementById('cursor-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'cursor-container';
-        container.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
-        `;
-        document.body.appendChild(container);
-    }
-    return container;
-}
-
-class CursorTrail {
-    constructor(container) {
-        this.container = container;
-        this.dots = [];
-        this.targetX = window.innerWidth / 2;
-        this.targetY = window.innerHeight / 2;
-        this.hue = 0;
-        this.velocity = 0;
-        this.mouseHistory = [];
-        this.initializeDots();
-    }
-
-    initializeDots() {
-        const DOT_COUNT = 25;
-        const BASE_SIZE = 16;
-        for (let i = 0; i < DOT_COUNT; i++) {
-            const dot = document.createElement('div');
-            dot.style.cssText = `
-                position: absolute; border-radius: 50%; pointer-events: none;
-                will-change: transform; transition: none;
-            `;
-            this.container.appendChild(dot);
-            this.dots.push({
-                element: dot,
-                x: this.targetX, y: this.targetY,
-                size: Math.max(BASE_SIZE - i * 0.6, 4),
-                speed: 0.15 - i * 0.004,
-                opacity: Math.max(0.9 - i * 0.03, 0.1)
-            });
-        }
-    }
-
-    updateTarget(x, y) {
-        this.targetX = x;
-        this.targetY = y;
-        this.mouseHistory.push({ x, y, time: Date.now() });
-        if (this.mouseHistory.length > 3) this.mouseHistory.shift();
-        
-        if (this.mouseHistory.length >= 2) {
-            const recent = this.mouseHistory[this.mouseHistory.length - 1];
-            const old = this.mouseHistory[0];
-            const distance = Math.sqrt(Math.pow(recent.x - old.x, 2) + Math.pow(recent.y - old.y, 2));
-            const time = recent.time - old.time;
-            this.velocity = time > 0 ? distance / time * 10 : 0;
-        }
-    }
-
-    addClickBurst(x, y) {
-        for (let i = 0; i < 8; i++) {
-            const particle = document.createElement('div');
-            particle.style.cssText = `
-                position: fixed; width: 6px; height: 6px; border-radius: 50%;
-                background: hsl(${this.hue}, 80%, 60%); pointer-events: none;
-                z-index: 9998; left: ${x}px; top: ${y}px;
-                animation: burstParticle 0.8s ease-out forwards;
-                transform-origin: center;
-            `;
-            const angle = (i / 8) * Math.PI * 2;
-            const distance = 50 + Math.random() * 30;
-            particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
-            particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
-            document.body.appendChild(particle);
-            setTimeout(() => particle.remove(), 800);
-        }
-    }
-
-    startAnimation() {
-        const animate = () => {
-            this.hue = (this.hue + 1) % 360;
-            const color = `hsl(${this.hue}, 85%, 65%)`;
-            const velocityFactor = Math.min(this.velocity / 5, 1);
-            
-            this.dots.forEach((dot, index) => {
-                if (index === 0) {
-                    dot.x += (this.targetX - dot.x) * dot.speed;
-                    dot.y += (this.targetY - dot.y) * dot.speed;
-                } else {
-                    dot.x += (this.dots[index - 1].x - dot.x) * dot.speed;
-                    dot.y += (this.dots[index - 1].y - dot.y) * dot.speed;
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius + this.size) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 5;
+                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 5;
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 5;
+                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 5;
                 }
-                
-                const adjustedOpacity = dot.opacity * (0.3 + velocityFactor * 0.7);
-                const adjustedSize = dot.size * (0.8 + velocityFactor * 0.4);
-                
-                dot.element.style.transform = `translate3d(${dot.x - adjustedSize/2}px, ${dot.y - adjustedSize/2}px, 0)`;
-                dot.element.style.width = `${adjustedSize}px`;
-                dot.element.style.height = `${adjustedSize}px`;
-                dot.element.style.backgroundColor = color;
-                dot.element.style.opacity = adjustedOpacity;
-                
-                if (index === 0) {
-                    dot.element.style.boxShadow = `0 0 ${20 + velocityFactor * 15}px ${color}`;
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            mouse.radius = 0;
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1.5;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                let color = `hsla(${Math.random() * 360}, 70%, 75%, 0.8)`;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = `rgba(200, 220, 255, ${opacityValue * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
                 }
-            });
-            
-            this.velocity *= 0.95;
+            }
+        }
+
+        function animate() {
             requestAnimationFrame(animate);
-        };
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+        
+        window.addEventListener('resize', init);
+        init();
         animate();
     }
-}
 
-// ========================
-// 6. CLICK RIPPLE EFFECT
-// ========================
-function createClickRipple(x, y) {
-    const ripple = document.createElement('div');
-    ripple.style.cssText = `
-        position: fixed; width: 100px; height: 100px; border-radius: 50%;
-        pointer-events: none; z-index: 9997; left: ${x}px; top: ${y}px;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-        animation: rippleExpand 0.6s ease-out forwards;
-    `;
-    document.body.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-}
 
-// ========================
-// 7. TAB NAVIGATION SYSTEM
-// ========================
-function initializeTabNavigation() {
-    const tabLinks = document.querySelectorAll('.tab-link');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    if (!tabLinks.length || !contentSections.length) return;
-
-    function showSection(targetSectionId, updateHistory = true) {
-        contentSections.forEach(section => section.classList.remove('active-content'));
-        tabLinks.forEach(link => link.classList.remove('active-tab'));
-
-        const activeSection = document.getElementById(targetSectionId);
-        const activeLink = document.querySelector(`.tab-link[data-section="${targetSectionId}"]`);
-
-        if (activeSection) activeSection.classList.add('active-content');
-        if (activeLink) {
-            activeLink.classList.add('active-tab');
-            if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
+    class AdvancedCursorController {
+        constructor(container) {
+            this.container = container;
+            this.cursorTrail = new CursorTrail(this.container);
+            this.mouseX = window.innerWidth / 2;
+            this.mouseY = window.innerHeight / 2;
+            this.idleTimer = null;
+            this.randomCursorInterval = null;
+            this.randomCursorAnimationId = null;
+            this.isRandomMovementActive = false;
+            this.handleMouseMove = this.handleMouseMove.bind(this);
+            this.handleMouseLeave = this.handleMouseLeave.bind(this);
+            this.handleMouseEnter = this.handleMouseEnter.bind(this);
         }
-    }
 
-    tabLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            showSection(link.getAttribute('data-section'), true);
-        });
-    });
+        start() {
+            this.cursorTrail.startAnimation();
+            window.addEventListener('mousemove', this.handleMouseMove);
+            document.body.addEventListener('mouseleave', this.handleMouseLeave);
+            document.body.addEventListener('mouseenter', this.handleMouseEnter);
+            this.resetIdleTimer();
+        }
 
-    function handleHashChange() {
-        const hash = window.location.hash;
-        let sectionIdToShow = 'about-content';
-        let targetHash = '#about';
+        stop() {
+            this.cursorTrail.stopAnimation();
+            window.removeEventListener('mousemove', this.handleMouseMove);
+            document.body.removeEventListener('mouseleave', this.handleMouseLeave);
+            document.body.removeEventListener('mouseenter', this.handleMouseEnter);
+            this.stopRandomCursorMovement();
+            clearTimeout(this.idleTimer);
+            this.container.innerHTML = '';
+        }
 
-        if (hash) {
-            const correspondingLink = document.querySelector(`.tab-link[href="${hash}"]`);
-            if (correspondingLink) {
-                sectionIdToShow = correspondingLink.getAttribute('data-section');
-                targetHash = hash;
-            } else {
-                history.replaceState(null, '', targetHash);
+        handleMouseMove(e) {
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+            this.cursorTrail.updateTarget(this.mouseX, this.mouseY);
+            if (this.isRandomMovementActive) {
+                this.stopRandomCursorMovement();
             }
+            this.resetIdleTimer();
+        }
+
+        resetIdleTimer() {
+            clearTimeout(this.idleTimer);
+            this.idleTimer = setTimeout(() => this.startRandomCursorMovement(), 3000);
+        }
+
+        handleMouseLeave() {
+            this.startRandomCursorMovement();
+        }
+
+        handleMouseEnter() {
+            this.stopRandomCursorMovement();
+            this.resetIdleTimer();
+        }
+
+        startRandomCursorMovement() {
+            if (this.isRandomMovementActive) return;
+            this.isRandomMovementActive = true;
+
+            const randomCursor = document.createElement('div');
+            randomCursor.id = 'random-cursor';
+            randomCursor.style.cssText = `position: fixed; pointer-events: none; z-index: 10000; opacity: 0; transition: opacity 0.5s ease-in-out;`;
+            document.body.appendChild(randomCursor);
+
+            let currentX = this.mouseX;
+            let currentY = this.mouseY;
+            let targetX = Math.random() * window.innerWidth;
+            let targetY = Math.random() * window.innerHeight;
+            let hue = 0;
+
+            this.randomCursorInterval = setInterval(() => {
+                targetX = Math.random() * window.innerWidth;
+                targetY = Math.random() * window.innerHeight;
+                const size = 15 + Math.random() * 15;
+                const shapes = ['circle', 'square'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                hue = (hue + 20) % 360;
+                randomCursor.style.setProperty('--hue', hue);
+                randomCursor.className = `cursor-shape ${shape}`;
+                randomCursor.style.width = `${size}px`;
+                randomCursor.style.height = `${size}px`;
+                randomCursor.style.opacity = 1;
+            }, 2500);
+
+            const animateRandomly = () => {
+                currentX += (targetX - currentX) * 0.02;
+                currentY += (targetY - currentY) * 0.02;
+                randomCursor.style.left = `${currentX}px`;
+                randomCursor.style.top = `${currentY}px`;
+                randomCursor.style.transform = `translate(-50%, -50%) rotate(${currentX * 0.5}deg)`;
+                this.cursorTrail.updateTarget(currentX, currentY);
+                this.randomCursorAnimationId = requestAnimationFrame(animateRandomly);
+            };
+            animateRandomly();
+        }
+
+        stopRandomCursorMovement() {
+            if (!this.isRandomMovementActive) return;
+            this.isRandomMovementActive = false;
+            clearInterval(this.randomCursorInterval);
+            cancelAnimationFrame(this.randomCursorAnimationId);
+            const randomCursor = document.getElementById('random-cursor');
+            if (randomCursor) {
+                randomCursor.style.opacity = 0;
+                setTimeout(() => randomCursor.remove(), 500);
+            }
+        }
+    }
+
+    class SimpleCursorController {
+        constructor(container) {
+            this.container = container;
+            this.cursorTrail = new CursorTrail(this.container);
+            this.handleMouseMove = this.handleMouseMove.bind(this);
+        }
+
+        start() {
+            this.cursorTrail.startAnimation();
+            window.addEventListener('mousemove', this.handleMouseMove);
+        }
+
+        stop() {
+            this.cursorTrail.stopAnimation();
+            window.removeEventListener('mousemove', this.handleMouseMove);
+            this.container.innerHTML = '';
+        }
+
+        handleMouseMove(e) {
+            this.cursorTrail.updateTarget(e.clientX, e.clientY);
+        }
+    }
+
+    class CursorTrail {
+        constructor(container) {
+            this.container = container;
+            this.dots = [];
+            this.targetX = window.innerWidth / 2;
+            this.targetY = window.innerHeight / 2;
+            this.hue = 0;
+            this.velocity = 0;
+            this.mouseHistory = [];
+            this.animationFrameId = null;
+            this.initializeDots();
+        }
+
+        initializeDots() {
+            const DOT_COUNT = 25;
+            const BASE_SIZE = 16;
+            for (let i = 0; i < DOT_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'cursor-dot';
+                this.container.appendChild(dot);
+                this.dots.push({
+                    element: dot, x: this.targetX, y: this.targetY,
+                    size: Math.max(BASE_SIZE - i * 0.6, 4),
+                    speed: 0.15 - i * 0.004,
+                    opacity: Math.max(0.9 - i * 0.03, 0.1)
+                });
+            }
+        }
+
+        updateTarget(x, y) {
+            this.targetX = x; this.targetY = y;
+            this.mouseHistory.push({ x, y, time: Date.now() });
+            if (this.mouseHistory.length > 3) this.mouseHistory.shift();
+            if (this.mouseHistory.length >= 2) {
+                const recent = this.mouseHistory[this.mouseHistory.length - 1];
+                const old = this.mouseHistory[0];
+                const distance = Math.sqrt((recent.x - old.x) ** 2 + (recent.y - old.y) ** 2);
+                const time = recent.time - old.time;
+                this.velocity = time > 0 ? distance / time * 10 : 0;
+            }
+        }
+
+        startAnimation() {
+            const animate = () => {
+                this.hue = (this.hue + 1) % 360;
+                const color = `hsl(${this.hue}, 85%, 65%)`;
+                const velocityFactor = Math.min(this.velocity / 5, 1);
+                
+                this.dots.forEach((dot, index) => {
+                    if (index === 0) {
+                        dot.x += (this.targetX - dot.x) * dot.speed;
+                        dot.y += (this.targetY - dot.y) * dot.speed;
+                    } else {
+                        dot.x += (this.dots[index - 1].x - dot.x) * dot.speed;
+                        dot.y += (this.dots[index - 1].y - dot.y) * dot.speed;
+                    }
+                    const adjustedOpacity = dot.opacity * (0.3 + velocityFactor * 0.7);
+                    const adjustedSize = dot.size * (0.8 + velocityFactor * 0.4);
+                    dot.element.style.transform = `translate3d(${dot.x - adjustedSize/2}px, ${dot.y - adjustedSize/2}px, 0)`;
+                    dot.element.style.width = `${adjustedSize}px`;
+                    dot.element.style.height = `${adjustedSize}px`;
+                    dot.element.style.backgroundColor = color;
+                    dot.element.style.opacity = adjustedOpacity;
+                    if (index === 0) {
+                        dot.element.style.boxShadow = `0 0 ${20 + velocityFactor * 15}px ${color}`;
+                    }
+                });
+                this.velocity *= 0.95;
+                this.animationFrameId = requestAnimationFrame(animate);
+            };
+            animate();
+        }
+
+        addClickBurst(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed; width: 6px; height: 6px; border-radius: 50%;
+                    background: hsl(${this.hue}, 80%, 60%); pointer-events: none;
+                    z-index: 9998; left: ${x}px; top: ${y}px;
+                    animation: burstParticle 0.8s ease-out forwards;
+                    transform-origin: center;
+                `;
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 50 + Math.random() * 30;
+                particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
+                particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 800);
+            }
+        }
+        
+        stopAnimation() {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+    }
+
+    function initializeCursorToggle() {
+        const toggle = document.getElementById('cursor-toggle');
+        
+        isCursorOnTop = !toggle.checked;
+        
+        toggle.addEventListener('change', (e) => {
+            isCursorOnTop = !e.target.checked;
+            switchCursorEffect();
+        });
+    }
+
+    function switchCursorEffect() {
+        document.body.classList.toggle('cursor-on-top', isCursorOnTop);
+
+        if (currentCursorController) {
+            currentCursorController.stop();
+        }
+
+        const container = document.getElementById('cursor-container');
+        if (isCursorOnTop) {
+            currentCursorController = new AdvancedCursorController(container);
         } else {
-            history.replaceState(null, '', targetHash);
+            currentCursorController = new SimpleCursorController(container);
         }
-        showSection(sectionIdToShow, false);
+        currentCursorController.start();
     }
 
-    window.addEventListener('popstate', handleHashChange);
-    handleHashChange();
-}
 
-// ========================
-// 8. INTERACTIVE EFFECTS
-// ========================
-function initializeInteractiveEffects() {
-    const bioLinks = document.querySelectorAll('.bio-link');
-    bioLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            link.style.transform = 'translateY(-3px) scale(1.02)';
-            link.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.25)';
-        });
-        link.addEventListener('mouseleave', () => {
-            link.style.transform = 'translateY(0) scale(1)';
-            link.style.boxShadow = '';
-        });
-    });
+    function initializeTabNavigation() {
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const contentSections = document.querySelectorAll('.content-section');
 
-    const videoCarousel = document.querySelector('.video-carousel');
-    if (videoCarousel) {
-        videoCarousel.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            videoCarousel.scrollLeft += e.deltaY;
+        function showSection(targetSectionId, updateHistory = true) {
+            contentSections.forEach(section => section.classList.remove('active-content'));
+            tabLinks.forEach(link => link.classList.remove('active-tab'));
+
+            const activeSection = document.getElementById(targetSectionId);
+            const activeLink = document.querySelector(`.tab-link[data-section="${targetSectionId}"]`);
+
+            if (activeSection) activeSection.classList.add('active-content');
+            if (activeLink) {
+                activeLink.classList.add('active-tab');
+                if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
+            }
+        }
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                showSection(link.getAttribute('data-section'), true);
+            });
         });
+
+        function handleHashChange() {
+            const hash = window.location.hash;
+            let sectionIdToShow = 'about-content';
+            if (hash) {
+                const correspondingLink = document.querySelector(`.tab-link[href="${hash}"]`);
+                if (correspondingLink) {
+                    sectionIdToShow = correspondingLink.getAttribute('data-section');
+                }
+            }
+            showSection(sectionIdToShow, false);
+        }
+
+        window.addEventListener('popstate', handleHashChange);
+        handleHashChange();
     }
 
-    const avatar = document.getElementById('avatar');
-    if (avatar) {
-        avatar.addEventListener('mouseenter', () => {
-            avatar.style.transform = 'scale(1.05) rotate(5deg)';
-        });
-        avatar.addEventListener('mouseleave', () => {
-            avatar.style.transform = 'scale(1) rotate(0deg)';
-        });
+    function initializeInteractiveEffects() {
+        const videoCarousel = document.querySelector('.video-carousel');
+        if (videoCarousel) {
+            videoCarousel.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                videoCarousel.scrollLeft += e.deltaY;
+            });
+        }
     }
-}
 
-// ========================
-// 9. MODAL FUNCTIONALITY
-// ========================
-function initializeModalFunctionality() {
-    window.openDreamModal = function() {
-        const modal = document.getElementById('dreamModal');
-        if (modal) {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-            const container = document.querySelector('.container');
-            if (container) container.classList.add('modal-open');
-        }
-    };
-
-    window.closeDreamModal = function() {
-        const modal = document.getElementById('dreamModal');
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            const container = document.querySelector('.container');
-            if (container) container.classList.remove('modal-open');
-        }
-    };
-
-    window.addEventListener('click', (event) => {
-        if (event.target === document.getElementById('dreamModal')) {
-            window.closeDreamModal();
-        }
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            window.closeDreamModal();
-        }
-    });
-}
-
-// ========================
-// 10. UTILITY FUNCTIONS
-// ========================
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
+    function initializeModalFunctionality() {
+        window.openDreamModal = function() {
+            const modal = document.getElementById('dreamModal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.querySelector('.container').classList.add('modal-open');
+            }
         };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
 
-// ========================
-// 11. RESPONSIVE HANDLING
-// ========================
-const handleResize = debounce(() => {
-    if (window.innerWidth <= 768) {
-        const cursorContainer = document.getElementById('cursor-container');
-        if (cursorContainer) cursorContainer.style.display = 'none';
-        
-        const randomCursor = document.getElementById('random-cursor');
-        if (randomCursor) randomCursor.remove();
-        
-        if (typeof stopRandomCursorMovement === 'function') {
-            stopRandomCursorMovement();
-        }
-    } else {
-        const cursorContainer = document.getElementById('cursor-container');
-        if (cursorContainer) cursorContainer.style.display = 'block';
+        window.closeDreamModal = function() {
+            const modal = document.getElementById('dreamModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.querySelector('.container').classList.remove('modal-open');
+            }
+        };
+
+        window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('dreamModal')) {
+                window.closeDreamModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                window.closeDreamModal();
+            }
+        });
     }
-    createBackgroundParticles();
-}, 250);
 
-window.addEventListener('resize', handleResize);
-
-// ========================
-// 12. PERFORMANCE OPTIMIZATION
-// ========================
-const observerOptions = {
-    root: null,
-    rootMargin: '50px',
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-        }
-    });
-}, observerOptions);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const elementsToObserve = document.querySelectorAll('.content-section, .bio-link, .video-carousel iframe');
-    elementsToObserve.forEach(el => observer.observe(el));
-});
+    function initializeClickEffect() {
+        window.addEventListener('click', (event) => {
+            if (currentCursorController && currentCursorController.cursorTrail) {
+                if (event.target.classList.contains('close-btn') || event.target.classList.contains('slider')) {
+                    return;
+                }
+                currentCursorController.cursorTrail.addClickBurst(event.clientX, event.clientY);
+            }
+        });
+    }
 
     </script>
 </body>
