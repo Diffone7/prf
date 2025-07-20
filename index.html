@@ -51,12 +51,15 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 10000; 
+            z-index: 10000; /* Ensure the custom cursor is always on top */
         }
         
-        body.cursor-on-top #cursor-container {
+        /* The body.cursor-on-top class was for the previous advanced/simple cursor logic.
+           It's not strictly needed for the idle movement types but kept for consistency
+           if other styles depend on it. */
+        /* body.cursor-on-top #cursor-container {
             z-index: 10000;
-        }
+        } */
 
         .cursor-dot {
             position: absolute;
@@ -686,7 +689,7 @@
         let particlesArray;
 
         // Object to store mouse coordinates.
-        const mouse = { x: null, y: null, radius: 0 };
+        const mouse = { x: null, y: null, radius: 150 }; // Changed mouse.radius to 150 for interaction
 
         // Update mouse coordinates on move.
         window.addEventListener('mousemove', (event) => {
@@ -740,11 +743,15 @@
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < mouse.radius + this.size) {
-                    // Push particle away from mouse (currently disabled by setting mouse.radius to 0).
-                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 5;
-                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 5;
-                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 5;
-                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 5;
+                    // Push particle away from mouse.
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (mouse.radius + this.size - distance) / (mouse.radius + this.size);
+                    const directionX = forceDirectionX * force * 2.5; // Adjust push strength
+                    const directionY = forceDirectionY * force * 2.5; // Adjust push strength
+
+                    this.x -= directionX;
+                    this.y -= directionY;
                 }
 
                 // Move particle and redraw it.
@@ -761,7 +768,7 @@
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            mouse.radius = 0; // Set to 0 to disable mouse repulsion effect.
+            // mouse.radius is now set globally in the mouse object, no need to reset here
             particlesArray = [];
             let numberOfParticles = (canvas.height * canvas.width) / 9000; // Responsive particle count.
             for (let i = 0; i < numberOfParticles; i++) {
@@ -1223,7 +1230,7 @@
         }
 
         // The body.classList.toggle('cursor-on-top') was for the previous Advanced/Simple cursor logic.
-        // It's not directly related to the idle movement types, but kept for consistency if other styles depend on it.
+        // It's not strictly needed for the idle movement types, but kept for consistency if other styles depend on it.
         // document.body.classList.toggle('cursor-on-top', isCursorOnTop); 
 
         const container = document.getElementById('cursor-container');
