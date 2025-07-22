@@ -54,13 +54,6 @@
             z-index: 10000; /* Ensure the custom cursor is always on top */
         }
         
-        /* The body.cursor-on-top class was for the previous advanced/simple cursor logic.
-           It's not strictly needed for the idle movement types but kept for consistency
-           if other styles depend on it. */
-        /* body.cursor-on-top #cursor-container {
-            z-index: 10000;
-        } */
-
         .cursor-dot {
             position: absolute;
             border-radius: 50%;
@@ -446,11 +439,19 @@
             color: #4ecdc4;
             font-weight: 500;
         }
-
+.tagline-close-btn:hover {
+    color: #4ecdc4;
+    transform: rotate(90deg);
+}
+        .tagline:hover {
+            color: #4ecdc4;
+        }
         .tab-link:hover,
         .dream-link:hover,
         .close-btn:hover,
-        .cursor-toggle-container .slider:hover { /* Added for among us cursor on hover */
+        .cursor-toggle-container .slider:hover,
+        .tagline-close-btn:hover,
+        .tagline:hover {
             cursor: url(https://ani.cursors-4u.net/games/gam-16/gam1570.cur), auto !important;
             transform: scale(1.105);
         }
@@ -484,7 +485,7 @@
             bottom: 0;
             background-color: rgba(255, 255, 255, 0.2);
             transition: .4s;
-            border-radius: 50%;
+            border-radius: 34px;
         }
         .cursor-toggle-container .slider:before {
             position: absolute;
@@ -547,6 +548,101 @@
                 transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
                 opacity: 0;
             }
+        }
+        .tagline-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            max-height: 70vh;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            z-index: 1001;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow-y: auto; /* ADDED */
+        }
+
+        /* REMOVED .tagline-modal-content rule */
+
+        .tagline-modal::-webkit-scrollbar { /* UPDATED SELECTOR */
+            width: 8px;
+        }
+
+        .tagline-modal::-webkit-scrollbar-track { /* UPDATED SELECTOR */
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .tagline-modal::-webkit-scrollbar-thumb { /* UPDATED SELECTOR */
+            background: linear-gradient(180deg, #4ecdc4, #45b7d1);
+            border-radius: 10px;
+        }
+
+        .tagline-modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+            font-size: 1.5em;
+        }
+
+        .tagline-notes {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tagline-note {
+            color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .tagline-note:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .tagline-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tagline {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tagline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tagline:hover::after {
+            transform: scaleX(1);
         }
     </style>
 </head>
@@ -657,7 +753,46 @@
             </div>
         </div>
     </div>
-
+<div id="taglineModal" class="tagline-modal">
+    <span class="tagline-close-btn" onclick="closeTaglineModal()">&times;</span>
+    <h3>My Notes</h3>
+    <div class="tagline-notes">
+        <div class="tagline-note">If someone says I've changed a lot, what do they expect? A lot changed me!</div>
+        <div class="tagline-note">A man who fears suffering is already suffering from what he fears.</div>
+        <div class="tagline-note">The only thing I know is that I know nothing.</div>
+        <div class="tagline-note">Do you really want it, or do you just want others to see that you have it?</div>
+        <div class="tagline-note">Boys who respect girls are mostly single</div>
+        <div class="tagline-note">Man is not what he thinks he is, he is what he hides.</div>
+        <div class="tagline-note">The man who moves a mountain begins by carrying away small stones.</div>
+        <div class="tagline-note">The journey of a thousand miles begins with one step.</div>
+        <div class="tagline-note">The future belongs to those who believe in the beauty of their dreams.</div>
+        <div class="tagline-note">The only limit to our realization of tomorrow will be our doubts of today.</div>
+        <div class="tagline-note">Success is not final, failure is not fatal: It is the courage to continue that counts.</div>
+        <div class="tagline-note">In the end, we will remember not the words of our enemies, but the silence of our friends.</div>
+        <div class="tagline-note">The only way to do great work is to love what you do.</div>
+        <div class="tagline-note">Life is what happens when you're busy making other plans.</div>
+        <div class="tagline-note">The best way to predict the future is to create it.</div>
+        <div class="tagline-note">Believe you can and you're halfway there.</div>
+        <div class="tagline-note">The only impossible journey is the one you never begin.</div>
+        <div class="tagline-note">Your time is limited, don't waste it living someone else's life.</div>
+        <div class="tagline-note">The only way to achieve the impossible is to believe it is possible.</div>
+        <div class="tagline-note">Success usually comes to those who are too busy to be looking for it.</div>
+        <div class="tagline-note">Don't watch the clock; do what it does. Keep going.</div>
+        <div class="tagline-note">The only limit to our realization of tomorrow is our doubts of today.</div>
+        <div class="tagline-note">The future belongs to those who prepare for it today.</div>
+        <div class="tagline-note">The best revenge is massive success.</div>
+        <div class="tagline-note">Don't be afraid to give up the good to go for the great.</div>
+        <div class="tagline-note">Success is walking from failure to failure with no loss of enthusiasm.</div>
+        <div class="tagline-note">The only way to do great work is to love what you do.</div>
+        <div class="tagline-note">If you can dream it, you can achieve it.</div>
+        <div class="tagline-note">The only way to do great work is to love what you do.</div>
+        <div class="tagline-note">Success is not how high you have climbed, but how you make a positive difference to the world.</div>
+        <div class="tagline-note">The man who asks a question is a fool for a minute, the man who never asks is a fool for life.</div>
+        <div class="tagline-note">The greatest glory in living lies not in never falling, but in rising every time we fall.</div>
+        <div class="tagline-note">The purpose of our lives is to be happy.</div>
+        <div class="tagline-note">Life is either a daring adventure or nothing at all.</div>
+    </div>
+</div>
     <script>
     // Global variable to manage the current state of the cursor effects.
     let currentCursorController = null;
@@ -673,11 +808,41 @@
         initializeModalFunctionality();
         initializeCursorToggle();
         initializeClickEffect();
-
+        initializeTaglineModal();
         // Set the initial cursor effect based on the toggle's default state.
         switchCursorEffect();
     });
+/**
+ * Initializes functionality for the tagline notes modal.
+ */
+function initializeTaglineModal() {
+    const tagline = document.querySelector('.tagline');
+    if (tagline) {
+        tagline.addEventListener('click', openTaglineModal);
+    }
+}
 
+/**
+ * Opens the tagline notes modal.
+ */
+function openTaglineModal() {
+    const modal = document.getElementById('taglineModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.querySelector('.container').classList.add('modal-open');
+    }
+}
+
+/**
+ * Closes the tagline notes modal.
+ */
+function closeTaglineModal() {
+    const modal = document.getElementById('taglineModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.querySelector('.container').classList.remove('modal-open');
+    }
+}
 
     /**
      * Manages the animated particle background on the canvas.
@@ -1336,12 +1501,22 @@
             if (event.target === document.getElementById('dreamModal')) {
                 window.closeDreamModal();
             }
+            if (event.target === document.getElementById('taglineModal')) {
+                closeTaglineModal();
+            }
         });
 
         // Close modal if user presses the Escape key.
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
-                window.closeDreamModal();
+                const dreamModal = document.getElementById('dreamModal');
+                if (dreamModal && dreamModal.style.display === 'block') {
+                    window.closeDreamModal();
+                }
+                const taglineModal = document.getElementById('taglineModal');
+                if (taglineModal && taglineModal.style.display === 'block') {
+                    closeTaglineModal();
+                }
             }
         });
     }
@@ -1354,7 +1529,7 @@
             // Ensure a cursor controller is active.
             if (currentCursorController && currentCursorController.cursorTrail) {
                 // Prevent the effect from triggering on UI elements like the close button or slider.
-                if (event.target.classList.contains('close-btn') || event.target.classList.contains('slider')) {
+                if (event.target.classList.contains('close-btn') || event.target.classList.contains('slider') || event.target.classList.contains('tagline-close-btn')) {
                     return;
                 }
                 // Trigger the burst effect.
@@ -1362,7 +1537,6 @@
             }
         });
     }
-
     </script>
 </body>
 </html>
