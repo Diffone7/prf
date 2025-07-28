@@ -439,10 +439,10 @@
             color: #4ecdc4;
             font-weight: 500;
         }
-.tagline-close-btn:hover {
-    color: #4ecdc4;
-    transform: rotate(90deg);
-}
+        .tagline-close-btn:hover {
+            color: #4ecdc4;
+            transform: rotate(90deg);
+        }
         .tagline:hover {
             color: #4ecdc4;
         }
@@ -644,6 +644,11 @@
         .tagline:hover::after {
             transform: scaleX(1);
         }
+
+        /* ADDED: Style for the specific tagline */
+        .visiting-tagline {
+            color: #4ecdc4;
+        }
     </style>
 </head>
 <body>
@@ -682,7 +687,8 @@
                         <p>Time zone: UTC+7</p>
                         <p>Dream: <a href="#" onclick="openDreamModal()" class="dream-link">A new PC and a new phone.</a></p>
                         <p>Birthday: 18/10</p>
-                        <p>Thanks for visiting my page, and have a great day!</p>
+                        <!-- CHANGED: Added a new class for styling -->
+                        <p class="tagline visiting-tagline" onclick="openVisitingTaglineModal()">More...</p>
                     </div>
                 </div>
 
@@ -793,6 +799,57 @@
         <div class="tagline-note">Life is either a daring adventure or nothing at all.</div>
     </div>
 </div>
+
+<div id="visitingTaglineModal" class="tagline-modal">
+    <span class="tagline-close-btn" onclick="closeVisitingTaglineModal()">&times;</span>
+    <h3>Yes , i am </h3>
+    <div class="tagline-notes">
+        <div class="tagline-note">
+            a failure
+        </div>
+        <div class="tagline-note">
+            a loser
+    </div>
+        <div class="tagline-note">
+            a nobody
+        </div>
+        <div class="tagline-note">
+            weak
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your time
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your attention
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your love
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your respect
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your friendship
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your trust
+        </div>
+        <div class="tagline-note">
+            a person who is not worth your loyalty
+        </div>
+    </div>
+</div>
+    <!-- Các script GSAP cần thiết cho hiệu ứng -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/CustomEase.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Observer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Physics2DPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/PhysicsPropsPlugin.min.js"></script>
+    
+    <!-- SỬA LỖI: Bọc toàn bộ mã JavaScript trong thẻ <script> và xóa thẻ </script> thừa -->
     <script>
     // Global variable to manage the current state of the cursor effects.
     let currentCursorController = null;
@@ -843,6 +900,29 @@ function closeTaglineModal() {
         document.querySelector('.container').classList.remove('modal-open');
     }
 }
+
+/**
+ * ADDED: Opens the visiting tagline modal.
+ */
+function openVisitingTaglineModal() {
+    const modal = document.getElementById('visitingTaglineModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.querySelector('.container').classList.add('modal-open');
+    }
+}
+
+/**
+ * ADDED: Closes the visiting tagline modal.
+ */
+function closeVisitingTaglineModal() {
+    const modal = document.getElementById('visitingTaglineModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.querySelector('.container').classList.remove('modal-open');
+    }
+}
+
 
     /**
      * Manages the animated particle background on the canvas.
@@ -1504,6 +1584,10 @@ function closeTaglineModal() {
             if (event.target === document.getElementById('taglineModal')) {
                 closeTaglineModal();
             }
+            // ADDED: Close new modal on background click
+            if (event.target === document.getElementById('visitingTaglineModal')) {
+                closeVisitingTaglineModal();
+            }
         });
 
         // Close modal if user presses the Escape key.
@@ -1516,6 +1600,11 @@ function closeTaglineModal() {
                 const taglineModal = document.getElementById('taglineModal');
                 if (taglineModal && taglineModal.style.display === 'block') {
                     closeTaglineModal();
+                }
+                // ADDED: Close new modal on Escape key
+                const visitingTaglineModal = document.getElementById('visitingTaglineModal');
+                if (visitingTaglineModal && visitingTaglineModal.style.display === 'block') {
+                    closeVisitingTaglineModal();
                 }
             }
         });
