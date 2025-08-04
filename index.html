@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -310,6 +310,9 @@
             padding: 20px 0;
             scrollbar-width: thin;
             scrollbar-color: rgba(78, 205, 196, 0.6) rgba(255, 255, 255, 0.1);
+            min-height: 200px; /* Thêm chiều cao tối thiểu để hiển thị thông báo tải */
+            align-items: center;
+            justify-content: flex-start;
         }
         .video-carousel::-webkit-scrollbar { height: 10px; }
         .video-carousel::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
@@ -327,6 +330,13 @@
         }
         .video-carousel iframe:hover {
             transform: scale(1.02);
+        }
+        
+        .loading-message, .error-message {
+            width: 100%;
+            text-align: center;
+            font-size: 1.1em;
+            opacity: 0.8;
         }
 
         .modal {
@@ -569,8 +579,6 @@
             overflow-y: auto; /* ADDED */
         }
 
-        /* REMOVED .tagline-modal-content rule */
-
         .tagline-modal::-webkit-scrollbar { /* UPDATED SELECTOR */
             width: 8px;
         }
@@ -645,7 +653,6 @@
             transform: scaleX(1);
         }
 
-        /* ADDED: Style for the specific tagline */
         .visiting-tagline {
             color: #4ecdc4;
         }
@@ -687,7 +694,6 @@
                         <p>Time zone: UTC+7</p>
                         <p>Dream: <a href="#" onclick="openDreamModal()" class="dream-link">A new PC and a new phone.</a></p>
                         <p>Birthday: 18/10</p>
-                        <!-- CHANGED: Added a new class for styling -->
                         <p class="tagline visiting-tagline" onclick="openVisitingTaglineModal()">More...</p>
                     </div>
                 </div>
@@ -701,20 +707,16 @@
                     </div>
                 </div>
 
+                <!-- YOUTUBE SECTION UPDATED -->
                 <div id="youtube-content" class="content-section">
                     <div class="youtube-section">
+                        <!-- Vùng chứa video sẽ được cập nhật động bằng JavaScript -->
                         <div class="video-carousel">
-                            <iframe src="https://www.youtube.com/embed/grKUu9CpJdM" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/0qRg8kn1SXg" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/nSk_FzlSOhI" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/7VXNkfE5U2c" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/mUP7EKZWUdQ" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/g_vLIAXurig" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/fE3OU5FqY0c" allow="fullscreen"></iframe>
-                            <iframe src="https://www.youtube.com/embed/8GW6sLrK40k" allow="fullscreen"></iframe>
+                           <!-- Nội dung sẽ được tải vào đây -->
                         </div>
                     </div>
                 </div>
+                <!-- END OF YOUTUBE SECTION -->
             </div>
         </div>
 
@@ -855,12 +857,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Draggable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/CustomEase.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js"></script>
+    <script src="httpshttps://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Observer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Physics2DPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/PhysicsPropsPlugin.min.js"></script>
     
-    <!-- SỬA LỖI: Bọc toàn bộ mã JavaScript trong thẻ <script> và xóa thẻ </script> thừa -->
     <script>
     // Global variable to manage the current state of the cursor effects.
     let currentCursorController = null;
@@ -880,6 +881,54 @@
         // Set the initial cursor effect based on the toggle's default state.
         switchCursorEffect();
     });
+
+    /**
+     * NEW FUNCTION: Loads videos from a YouTube playlist.
+     * @param {string} playlistId The ID of the YouTube playlist.
+     */
+    async function loadYoutubePlaylist(playlistId) {
+        const carousel = document.querySelector('.video-carousel');
+        carousel.innerHTML = '<p class="loading-message">Đang tải video từ playlist...</p>';
+
+        // We use a CORS proxy to fetch the RSS feed to avoid browser restrictions.
+        // allorigins.win is a popular free and open-source proxy.
+        const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+
+        try {
+            const response = await fetch(proxyUrl);
+            if (!response.ok) {
+                throw new Error(`Lỗi mạng: ${response.status}`);
+            }
+            const data = await response.json();
+            const xmlString = data.contents;
+            
+            // Parse the XML string into a DOM object.
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+            
+            const entries = xmlDoc.querySelectorAll('entry');
+            if (entries.length === 0) {
+                throw new Error('Không tìm thấy video nào trong playlist hoặc playlist không tồn tại.');
+            }
+
+            carousel.innerHTML = ''; // Clear the loading message.
+
+            entries.forEach(entry => {
+                const videoId = entry.querySelector('videoId').textContent;
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.setAttribute('allow', 'fullscreen');
+                carousel.appendChild(iframe);
+            });
+
+        } catch (error) {
+            console.error('Lỗi khi tải playlist YouTube:', error);
+            carousel.innerHTML = `<p class="error-message">Không thể tải video. Vui lòng thử lại sau. Lỗi: ${error.message}</p>`;
+        }
+    }
+
+
 /**
  * Initializes functionality for the tagline notes modal.
  */
@@ -1467,8 +1516,6 @@ function closeVisitingTaglineModal() {
     function initializeCursorToggle() {
         const toggle = document.getElementById('cursor-toggle');
         
-        // isRandomMovementActiveOnIdle is true if toggle is checked (random movement)
-        // isRandomMovementActiveOnIdle is false if toggle is unchecked (circular movement)
         isRandomMovementActiveOnIdle = toggle.checked; 
         
         toggle.addEventListener('change', (e) => {
@@ -1485,10 +1532,6 @@ function closeVisitingTaglineModal() {
             currentCursorController.stop(); // Stop the current controller.
         }
 
-        // The body.classList.toggle('cursor-on-top') was for the previous Advanced/Simple cursor logic.
-        // It's not strictly needed for the idle movement types, but kept for consistency if other styles depend on it.
-        // document.body.classList.toggle('cursor-on-top', isCursorOnTop); 
-
         const container = document.getElementById('cursor-container');
         if (isRandomMovementActiveOnIdle) {
             currentCursorController = new RandomMovementController(container);
@@ -1501,10 +1544,13 @@ function closeVisitingTaglineModal() {
 
     /**
      * Initializes the tab navigation system.
+     * UPDATED to load YouTube playlist on tab click.
      */
     function initializeTabNavigation() {
         const tabLinks = document.querySelectorAll('.tab-link');
         const contentSections = document.querySelectorAll('.content-section');
+        const playlistId = 'PLRhHN32maGg1DyfTL42cJ2aUv9T8Do_DA';
+        let youtubeLoaded = false;
 
         /**
          * Displays a specific content section and updates tab state.
@@ -1521,8 +1567,13 @@ function closeVisitingTaglineModal() {
             if (activeSection) activeSection.classList.add('active-content');
             if (activeLink) {
                 activeLink.classList.add('active-tab');
-                // Update browser URL for deep linking if needed.
                 if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
+            }
+
+            // If the YouTube tab is clicked and videos haven't been loaded yet.
+            if (targetSectionId === 'youtube-content' && !youtubeLoaded) {
+                loadYoutubePlaylist(playlistId);
+                youtubeLoaded = true; // Set flag to true to prevent reloading.
             }
         }
 
@@ -1560,6 +1611,7 @@ function closeVisitingTaglineModal() {
         if (videoCarousel) {
             // Allows scrolling horizontally with the mouse wheel.
             videoCarousel.addEventListener('wheel', (e) => {
+                if (e.deltaY === 0) return;
                 e.preventDefault();
                 videoCarousel.scrollLeft += e.deltaY;
             });
@@ -1595,7 +1647,6 @@ function closeVisitingTaglineModal() {
             if (event.target === document.getElementById('taglineModal')) {
                 closeTaglineModal();
             }
-            // ADDED: Close new modal on background click
             if (event.target === document.getElementById('visitingTaglineModal')) {
                 closeVisitingTaglineModal();
             }
@@ -1612,7 +1663,6 @@ function closeVisitingTaglineModal() {
                 if (taglineModal && taglineModal.style.display === 'block') {
                     closeTaglineModal();
                 }
-                // ADDED: Close new modal on Escape key
                 const visitingTaglineModal = document.getElementById('visitingTaglineModal');
                 if (visitingTaglineModal && visitingTaglineModal.style.display === 'block') {
                     closeVisitingTaglineModal();
