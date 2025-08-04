@@ -883,12 +883,12 @@
     });
 
     /**
-     * NEW FUNCTION: Loads videos from a YouTube playlist.
+     * MODIFIED FUNCTION: Loads videos from a YouTube playlist sequentially.
      * @param {string} playlistId The ID of the YouTube playlist.
      */
     async function loadYoutubePlaylist(playlistId) {
         const carousel = document.querySelector('.video-carousel');
-        carousel.innerHTML = '<p class="loading-message">Đang tải video từ playlist...</p>';
+        carousel.innerHTML = '<p class="loading-message">Loading videos from the playlist...</p>';
 
         // We use a CORS proxy to fetch the RSS feed to avoid browser restrictions.
         // allorigins.win is a popular free and open-source proxy.
@@ -909,22 +909,29 @@
             
             const entries = xmlDoc.querySelectorAll('entry');
             if (entries.length === 0) {
-                throw new Error('Không tìm thấy video nào trong playlist hoặc playlist không tồn tại.');
+                throw new Error('No videos were found in the playlist, or the playlist does not exist.');
             }
 
             carousel.innerHTML = ''; // Clear the loading message.
 
-            entries.forEach(entry => {
+            // Helper function to create a delay
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+
+            // Loop through each video entry and load it sequentially
+            for (const entry of entries) {
                 const videoId = entry.querySelector('videoId').textContent;
                 const iframe = document.createElement('iframe');
                 iframe.src = `https://www.youtube.com/embed/${videoId}`;
                 iframe.setAttribute('allow', 'fullscreen');
                 carousel.appendChild(iframe);
-            });
+
+                // Wait for a short period before loading the next video
+                await delay(200); 
+            }
 
         } catch (error) {
-            console.error('Lỗi khi tải playlist YouTube:', error);
-            carousel.innerHTML = `<p class="error-message">Không thể tải video. Vui lòng thử lại sau. Lỗi: ${error.message}</p>`;
+            console.error('Error loading YouTube playlist:', error);
+            carousel.innerHTML = `<p class="error-message">Unable to load videos. Please try again later. Error: ${error.message}</p>`;
         }
     }
 
