@@ -120,32 +120,57 @@
             margin-bottom: 20px;
         }
         
-        .avatar-ring {
+.lava-lamp {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 3;
+    filter: blur(12px) contrast(20);
+    animation: discord-glow 8s linear infinite;
+    background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, transparent 70%);
+}
+
+        .blob {
             position: absolute;
-            top: -10px;
-            left: -10px;
-            width: calc(100% + 20px);
-            height: calc(100% + 20px);
             border-radius: 50%;
-            overflow: hidden;
-            background: transparent;
-            transform: translateZ(0);
-        }
-        .avatar-ring::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 20%, hsla(300, 85%, 65%, 0.7), transparent 40%),
-                radial-gradient(circle at 80% 30%, hsla(180, 90%, 60%, 0.8), transparent 40%),
-                radial-gradient(circle at 75% 80%, hsla(60, 95%, 60%, 0.75), transparent 40%),
-                radial-gradient(circle at 25% 75%, hsla(240, 88%, 70%, 0.8), transparent 40%);
-            animation: aurora-rotate 10s linear infinite;
+            width: 50px; /* Changed from 70px */
+            height: 50px; /* Changed from 70px */
+            animation: move-blob 15s ease-in-out infinite;
         }
 
+.blob.discord-primary { background: radial-gradient(circle, #5865f2, #4752c4); }
+.blob.discord-success { background: radial-gradient(circle, #00d166, #00a86b); }
+.blob.discord-warning { background: radial-gradient(circle, #faa61a, #f57c00); }
+.blob.discord-danger { background: radial-gradient(circle, #ed4245, #c53030); }
+.blob.discord-boost { background: radial-gradient(circle, #ff73fa, #d946ef); }
+.blob.discord-nitro { background: radial-gradient(circle, #ff6b35, #e53e3e); }
+
+@keyframes discord-glow {
+    0% { 
+        filter: blur(12px) contrast(20) hue-rotate(0deg);
+        transform: rotate(0deg);
+    }
+    25% { 
+        filter: blur(10px) contrast(25) hue-rotate(90deg);
+        transform: rotate(90deg);
+    }
+    50% { 
+        filter: blur(14px) contrast(18) hue-rotate(180deg);
+        transform: rotate(180deg);
+    }
+    75% { 
+        filter: blur(11px) contrast(23) hue-rotate(270deg);
+        transform: rotate(270deg);
+    }
+    100% { 
+        filter: blur(12px) contrast(20) hue-rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
         #avatar {
             width: 160px;
             height: 160px;
@@ -299,7 +324,7 @@
         .bio-link.website { background: linear-gradient(135deg, #28a745, #20c997); }
         .bio-link.email { background: linear-gradient(135deg, #dc3545, #e74c3c); }
 
-        .youtube-section {
+        .music-section {
             text-align: center;
         }
         .video-carousel {
@@ -529,9 +554,16 @@
             .modal-body { flex-direction: column; }
         }
 
-        @keyframes aurora-rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+        @keyframes move-blob {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            25% { transform: scale(1.3) translate(30px, -50px); }
+            50% { transform: scale(0.8) translate(-40px, 60px); }
+            75% { transform: scale(1.2) translate(-60px, -30px); }
+        }
+
+        @keyframes hue-cycle {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
         }
 
         @keyframes fadeIn {
@@ -674,7 +706,16 @@
         <div class="container">
             <div class="profile-section">
                 <div class="avatar-container">
-                    <div class="avatar-ring"></div>
+<div class="lava-lamp">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div> 
+</div>
                     <img id="avatar" src="avatar.jpg" alt="Avatar">
                 </div>
                 <h1 class="name" lang="vi">Nguyễn Tiến Minh</h1>
@@ -684,7 +725,7 @@
             <nav class="tab-navigation">
                 <a href="#about" class="tab-link" data-section="about-content">About</a>
                 <a href="#contact" class="tab-link" data-section="contact-content">Contact</a>
-                <a href="#youtube" class="tab-link" data-section="youtube-content">Youtube</a>
+                <a href="#music" class="tab-link" data-section="music-content">Music</a>
             </nav>
 
             <div class="content-wrapper">
@@ -707,16 +748,16 @@
                     </div>
                 </div>
 
-                <!-- YOUTUBE SECTION UPDATED -->
-                <div id="youtube-content" class="content-section">
-                    <div class="youtube-section">
+                <!-- MUSIC SECTION UPDATED -->
+                <div id="music-content" class="content-section">
+                    <div class="music-section">
                         <!-- Vùng chứa video sẽ được cập nhật động bằng JavaScript -->
                         <div class="video-carousel">
                            <!-- Nội dung sẽ được tải vào đây -->
                         </div>
                     </div>
                 </div>
-                <!-- END OF YOUTUBE SECTION -->
+                <!-- END OF MUSIC SECTION -->
             </div>
         </div>
 
@@ -883,16 +924,18 @@
     });
 
     /**
-     * MODIFIED FUNCTION: Loads videos from a YouTube playlist sequentially.
-     * @param {string} playlistId The ID of the YouTube playlist.
+     * MODIFIED FUNCTION: Loads videos from a playlist sequentially and bypasses cache.
+     * @param {string} playlistId The ID of the playlist.
      */
-    async function loadYoutubePlaylist(playlistId) {
+    async function loadMusicPlaylist(playlistId) {
         const carousel = document.querySelector('.video-carousel');
-        carousel.innerHTML = '<p class="loading-message">Loading videos from the playlist...</p>';
+        carousel.innerHTML = '<p class="loading-message">Loading music from the playlist...</p>';
 
+        // Add a unique timestamp to the RSS URL to bypass the proxy's cache.
+        const cacheBuster = new Date().getTime();
+        const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}&_=${cacheBuster}`;
+        
         // We use a CORS proxy to fetch the RSS feed to avoid browser restrictions.
-        // allorigins.win is a popular free and open-source proxy.
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
         const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
 
         try {
@@ -930,8 +973,8 @@
             }
 
         } catch (error) {
-            console.error('Error loading YouTube playlist:', error);
-            carousel.innerHTML = `<p class="error-message">Unable to load videos. Please try again later. Error: ${error.message}</p>`;
+            console.error('Error loading music playlist:', error);
+            carousel.innerHTML = `<p class="error-message">Unable to load music. Please try again later. Error: ${error.message}</p>`;
         }
     }
 
@@ -1551,13 +1594,12 @@ function closeVisitingTaglineModal() {
 
     /**
      * Initializes the tab navigation system.
-     * UPDATED to load YouTube playlist on tab click.
      */
     function initializeTabNavigation() {
         const tabLinks = document.querySelectorAll('.tab-link');
         const contentSections = document.querySelectorAll('.content-section');
         const playlistId = 'PLRhHN32maGg1DyfTL42cJ2aUv9T8Do_DA';
-        let youtubeLoaded = false;
+        let musicLoaded = false;
 
         /**
          * Displays a specific content section and updates tab state.
@@ -1577,10 +1619,10 @@ function closeVisitingTaglineModal() {
                 if (updateHistory) history.pushState(null, '', activeLink.getAttribute('href'));
             }
 
-            // If the YouTube tab is clicked and videos haven't been loaded yet.
-            if (targetSectionId === 'youtube-content' && !youtubeLoaded) {
-                loadYoutubePlaylist(playlistId);
-                youtubeLoaded = true; // Set flag to true to prevent reloading.
+            // If the Music tab is clicked and videos haven't been loaded yet.
+            if (targetSectionId === 'music-content' && !musicLoaded) {
+                loadMusicPlaylist(playlistId);
+                musicLoaded = true; // Set flag to true to prevent reloading.
             }
         }
 
@@ -1610,20 +1652,228 @@ function closeVisitingTaglineModal() {
         handleHashChange(); // Set initial tab on page load.
     }
 
+function initializeDiscordAvatarDecoration() {
+    const lavaLamp = document.querySelector('.lava-lamp');
+    if (!lavaLamp) return;
+
+    // Tạo controller cho avatar decoration
+    const decorationController = new DiscordAvatarDecoration(lavaLamp);
+    decorationController.start();
+
+    // Thêm sự kiện hover cho avatar
+    const avatar = document.getElementById('avatar');
+    if (avatar) {
+        avatar.addEventListener('mouseenter', () => {
+            decorationController.onAvatarHover(true);
+        });
+        
+        avatar.addEventListener('mouseleave', () => {
+            decorationController.onAvatarHover(false);
+        });
+
+        avatar.addEventListener('click', () => {
+            decorationController.onAvatarClick();
+        });
+    }
+}
+
+/**
+ * Class quản lý hiệu ứng trang trí avatar kiểu Discord
+ */
+class DiscordAvatarDecoration {
+    constructor(container) {
+        this.container = container;
+        this.blobs = [];
+        this.animationFrame = null;
+        this.isHovered = false;
+        this.time = 0;
+        this.colors = ['discord-primary', 'discord-success', 'discord-warning', 
+                      'discord-danger', 'discord-boost', 'discord-nitro'];
+        this.initializeBlobs();
+    }
+
+    /**
+     * Tạo các blob với thuộc tính Discord
+     */
+    initializeBlobs() {
+        // Xóa blob cũ
+        this.container.innerHTML = '';
+        this.blobs = [];
+
+        const blobCount = 8;
+        const centerX = 50;
+        const centerY = 50;
+
+        for (let i = 0; i < blobCount; i++) {
+            const blob = document.createElement('div');
+            blob.className = `blob ${this.colors[i % this.colors.length]}`;
+            
+            const angle = (i / blobCount) * Math.PI * 2;
+            const radius = 35 + Math.random() * 10;
+            
+            const blobData = {
+                element: blob,
+                baseX: centerX + Math.cos(angle) * radius,
+                baseY: centerY + Math.sin(angle) * radius,
+                currentX: centerX + Math.cos(angle) * radius,
+                currentY: centerY + Math.sin(angle) * radius,
+                baseSize: 20 + Math.random() * 15,
+                currentSize: 20 + Math.random() * 15,
+                phase: Math.random() * Math.PI * 2,
+                speed: 0.02 + Math.random() * 0.01,
+                orbitRadius: radius,
+                pulseDuration: 2000 + Math.random() * 1000,
+                lastPulse: Date.now(),
+                colorIndex: i % this.colors.length
+            };
+
+            this.blobs.push(blobData);
+            this.container.appendChild(blob);
+        }
+    }
+
+    /**
+     * Bắt đầu animation
+     */
+    start() {
+        this.animate();
+    }
+
+    /**
+     * Dừng animation
+     */
+    stop() {
+        if (this.animationFrame) {
+            cancelAnimationFrame(this.animationFrame);
+        }
+    }
+
+    /**
+     * Xử lý khi hover avatar
+     */
+    onAvatarHover(isHovered) {
+        this.isHovered = isHovered;
+        
+        this.blobs.forEach((blob, index) => {
+            if (isHovered) {
+                // Hiệu ứng expand khi hover
+                blob.targetSize = blob.baseSize * 1.5;
+                blob.targetOrbitRadius = blob.orbitRadius * 1.3;
+                blob.element.style.filter = 'blur(2px) drop-shadow(0 0 20px currentColor) brightness(1.3)';
+            } else {
+                // Trở về trạng thái bình thường
+                blob.targetSize = blob.baseSize;
+                blob.targetOrbitRadius = blob.orbitRadius;
+                blob.element.style.filter = 'blur(4px) drop-shadow(0 0 10px currentColor) brightness(1)';
+            }
+        });
+    }
+
+    /**
+     * Xử lý khi click avatar
+     */
+    onAvatarClick() {
+        // Hiệu ứng burst khi click
+        this.blobs.forEach((blob, index) => {
+            setTimeout(() => {
+                blob.burstEffect = true;
+                blob.burstStartTime = Date.now();
+                
+                // Đổi màu ngẫu nhiên
+                blob.colorIndex = Math.floor(Math.random() * this.colors.length);
+                blob.element.className = `blob ${this.colors[blob.colorIndex]}`;
+            }, index * 50);
+        });
+    }
+
+    /**
+     * Animation loop chính
+     */
+    animate() {
+        this.time += 0.016;
+        const currentTime = Date.now();
+
+        this.blobs.forEach((blob, index) => {
+            // Chuyển động quỹ đạo cơ bản
+            const angleOffset = this.time * blob.speed + blob.phase;
+            const orbitRadius = blob.targetOrbitRadius || blob.orbitRadius;
+            
+            // Smooth transition cho orbit radius
+            blob.orbitRadius += (orbitRadius - blob.orbitRadius) * 0.1;
+            
+            blob.currentX = 50 + Math.cos(angleOffset) * blob.orbitRadius;
+            blob.currentY = 50 + Math.sin(angleOffset) * blob.orbitRadius;
+
+            // Thêm chuyển động wave
+            const waveX = Math.sin(this.time * 2 + index) * 3;
+            const waveY = Math.cos(this.time * 1.5 + index) * 3;
+            
+            blob.currentX += waveX;
+            blob.currentY += waveY;
+
+            // Pulse effect
+            const timeSinceLastPulse = currentTime - blob.lastPulse;
+            if (timeSinceLastPulse > blob.pulseDuration) {
+                blob.lastPulse = currentTime;
+                blob.pulseDuration = 2000 + Math.random() * 2000;
+            }
+            
+            const pulseProgress = timeSinceLastPulse / blob.pulseDuration;
+            const pulseMultiplier = 1 + Math.sin(pulseProgress * Math.PI * 2) * 0.3;
+
+            // Size handling
+            const targetSize = (blob.targetSize || blob.baseSize) * pulseMultiplier;
+            blob.currentSize += (targetSize - blob.currentSize) * 0.1;
+
+            // Burst effect
+            if (blob.burstEffect) {
+                const burstDuration = 800;
+                const burstProgress = (currentTime - blob.burstStartTime) / burstDuration;
+                
+                if (burstProgress < 1) {
+                    const burstScale = 1 + Math.sin(burstProgress * Math.PI) * 0.8;
+                    blob.currentSize = blob.baseSize * burstScale;
+                    
+                    // Hiệu ứng màu sắc burst
+                    blob.element.style.filter = `blur(${2 + burstProgress * 8}px) drop-shadow(0 0 ${20 + burstProgress * 30}px currentColor) brightness(${1 + burstProgress})`;
+                } else {
+                    blob.burstEffect = false;
+                    blob.element.style.filter = 'blur(4px) drop-shadow(0 0 10px currentColor) brightness(1)';
+                }
+            }
+
+            // Áp dụng styles
+            blob.element.style.left = `${blob.currentX}%`;
+            blob.element.style.top = `${blob.currentY}%`;
+            blob.element.style.width = `${blob.currentSize}px`;
+            blob.element.style.height = `${blob.currentSize}px`;
+            blob.element.style.transform = `translate(-50%, -50%) rotate(${angleOffset * 180 / Math.PI}deg)`;
+            
+            // Discord-style morphing
+            const morphX = 50 + Math.sin(this.time + index) * 20;
+            const morphY = 50 + Math.cos(this.time * 0.7 + index) * 20;
+            blob.element.style.borderRadius = `${morphX}% ${100-morphX}% ${morphY}% ${100-morphY}%`;
+        });
+
+        this.animationFrame = requestAnimationFrame(() => this.animate());
+    }
+}
+
     /**
      * Initializes other minor interactive effects.
      */
-    function initializeInteractiveEffects() {
-        const videoCarousel = document.querySelector('.video-carousel');
-        if (videoCarousel) {
-            // Allows scrolling horizontally with the mouse wheel.
-            videoCarousel.addEventListener('wheel', (e) => {
-                if (e.deltaY === 0) return;
-                e.preventDefault();
-                videoCarousel.scrollLeft += e.deltaY;
-            });
-        }
+function initializeInteractiveEffects() {
+    const videoCarousel = document.querySelector('.video-carousel');
+    if (videoCarousel) {
+        videoCarousel.addEventListener('wheel', (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            videoCarousel.scrollLeft += e.deltaY;
+        });
     }
+
+    initializeDiscordAvatarDecoration();
+}
 
     /**
      * Initializes all functionality for the modal pop-up.
