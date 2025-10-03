@@ -1246,6 +1246,18 @@
         Download
     </button>
 </div>
+<div id="qrModal" class="avatar-modal">
+    <span class="avatar-modal-close">&times;</span>
+    <div class="avatar-modal-content">
+        <img id="qrCodeImage" src="" alt="QR Code">
+    </div>
+    <button class="avatar-modal-download" data-qr="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Download QR
+    </button>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Draggable.min.js"></script>
@@ -2136,14 +2148,19 @@ function initializeModalFunctionality() {
             });
         });
 
-        qrButton?.addEventListener('click', () => {
-            shareModal.style.display = 'none';
-            shareOverlay.style.display = 'none';
-            if (qrModal) {
-                qrModal.style.display = 'block';
-                document.querySelector('.container').classList.add('modal-open');
-            }
-        });
+qrButton?.addEventListener('click', () => {
+    shareModal.style.display = 'none';
+    shareOverlay.style.display = 'none';
+    if (qrModal) {
+        // Tạo QR code bằng API
+        const qrImage = document.getElementById('qrCodeImage');
+        const url = encodeURIComponent('https://Diffone7.github.io/prf/');
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${url}`;
+        
+        qrModal.style.display = 'block';
+        document.querySelector('.container').classList.add('modal-open');
+    }
+});
     }
 
     // Existing dream modal code
