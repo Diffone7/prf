@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="icon" href="https://claude.ai/images/claude_app_icon.png" type="image/png">
-    
     <meta property="og:title" content="Ntmc0987se" />
     <meta property="og:description" content="idk" />
     <meta property="og:image" content="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/505944969_1047947857294164_9159577840644626171_n.jpg?stp=c4.0.250.250a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFd4zuZ1U-Q34ERqtZCy_k5TMYBxbNJWA9MxgHFs0lYD33ZwNo_Evo3oK2xfllpXtArMkcG7RNhwwmjVmLA2EmX&_nc_ohc=I6IFYAs7eDkQ7kNvwEQs9n6&_nc_oc=AdnILOp9PjT0WRM-gMvR0xFvmo78cP1H6zI9R0rlK1pYGjfSCbEzuSPKy1JYeE_GlJs&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=x6KB_LOk0LLkAIiuJ0rCNw&oh=00_AfTYCnIMKh-I0DSxRYm9RB342jicfcF4_L5M6MVIeq3YyA&oe=687A38BB" />
     <meta property="og:url" content="https://ntmc0987se.github.io/bio/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ntmc0987se Bio" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ntmc0987se" />
     <meta name="twitter:description" content="idk" />
@@ -21,16 +19,13 @@
 </head>
 <body>
     <canvas id="interactive-canvas"></canvas>
-    
     <div id="cursor-container"></div>
-
     <div class="cursor-toggle-container">
         <label class="switch">
             <input type="checkbox" id="cursor-toggle">
             <span class="slider"></span>
         </label>
     </div>
-
 <div id="app">
     <div class="container">
         <button class="share-button" id="shareButton"> 
@@ -40,17 +35,7 @@
             </svg>
         </button>
             <div class="profile-section">   
-                <button class="decoration-button" id="decorationButton">.</button>
-
-<!-- Decoration Image Modal -->
-<div id="decorationModal" class="decoration-modal">
-    <span class="decoration-modal-close">&times;</span>
-    <div class="decoration-modal-content">
-        <div class="decoration-image-container">
-            <div class="decoration-img">
-                <img src="https://cdn.jsdelivr.net/gh/itspi3141/discord-fake-avatar-decorations@main/public/decorations/inzoi_psycat.png" alt="decoration">
-            </div>
-            <img class="main-image" src="https://cdn.discordapp.com/avatars/1257293493462765599/archived/1419673661169991791/83c016b68f519e0f43f227fe4dcc3e66.png" alt="Decorated Image">
+                <button class=decoration-button id=decorationButton>.</button><div class=decoration-modal id=decorationModal><span class=decoration-modal-close>×</span><div class=decoration-modal-content><div class=decoration-image-container><div class=decoration-img><img alt=decoration src=https://cdn.jsdelivr.net/gh/itspi3141/discord-fake-avatar-decorations@main/public/decorations/inzoi_psycat.png></div><img alt="Decorated Image"src=https://cdn.discordapp.com/avatars/1257293493462765599/archived/1419673661169991791/83c016b68f519e0f43f227fe4dcc3e66.png class=main-image>
         </div>
     </div>
 </div>
@@ -63,13 +48,11 @@
 </div>
                 <h1 class="name" lang="vi">Minh Nguyễn</h1>
             </div>
-
             <nav class="tab-navigation">
                 <a href="#about" class="tab-link" data-section="about-content">About</a>
                 <a href="#contact" class="tab-link" data-section="contact-content">Contact</a>
                 <a href="#music" class="tab-link" data-section="music-content">Music</a>
             </nav>
-
             <div class="content-wrapper">
                 <div id="about-content" class="content-section">
                     <div class="notes-section">
@@ -79,7 +62,6 @@
                         <p>Birthday: 18/10</p>
                     </div>
                 </div>
-
                 <div id="contact-content" class="content-section">
                     <div class="links-section">
                         <a href="https://www.facebook.com/nm0987f" target="_blank" class="bio-link facebook">Facebook</a>
@@ -95,9 +77,7 @@
                     </div>
                 </div>
             </div>
-            
         </div>
-<!-- Share Overlay và Modal -->
 <div class="share-overlay" id="shareOverlay"></div>
 <div class="share-modal" id="shareModal">
     <h3>Share Profile</h3>
@@ -130,50 +110,7 @@
         Show QR Code
     </button>
 </div>
-<!--
-        <div id="dreamModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeDreamModal()">&times;</span>
-                <h2 class="modal-title">Setup</h2>
-                <div class="modal-body">
-                    <div class="left-section">
-                        <h3>Phone</h3>
-                        <div class="spec-table">
-                            <div class="spec-row"><span class="spec-label">Model name:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">tempered glass:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Screen:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Chip:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Security:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Internal storage, RAM:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Rear camera:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Front camera:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Pin:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Charger:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Water resistance:</span><span class="spec-value">IP68/IP69</span></div>
-                            <div class="spec-row"><span class="spec-label">Operating system:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Update support:</span><span class="spec-value">...</span></div>
-                        </div>
-                    </div>
-                    <div class="right-section">
-                        <h3>PC Configuration</h3>
-                        <div class="spec-table">
-                            <div class="spec-row"><span class="spec-label">CPU:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">RAM:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">VGA:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Heatsink:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Case:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">PSU:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Monitor:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Keyboard:</span><span class="spec-value">...</span></div>
-                            <div class="spec-row"><span class="spec-label">Mouse:</span><span class="spec-value">...</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
--->
-    <!-- Avatar Modal -->
+<!-- <div class=modal id=dreamModal><div class=modal-content><span class=close-btn onclick=closeDreamModal()>×</span><h2 class=modal-title>Setup</h2><div class=modal-body><div class=left-section><h3>Phone</h3><div class=spec-table><div class=spec-row><span class=spec-label>Model name:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>tempered glass:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Screen:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Chip:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Security:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Internal storage, RAM:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Rear camera:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Front camera:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Pin:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Charger:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Water resistance:</span><span class=spec-value>IP68/IP69</span></div><div class=spec-row><span class=spec-label>Operating system:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Update support:</span><span class=spec-value>...</span></div></div></div><div class=right-section><h3>PC Configuration</h3><div class=spec-table><div class=spec-row><span class=spec-label>CPU:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>RAM:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>VGA:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Heatsink:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Case:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>PSU:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Monitor:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Keyboard:</span><span class=spec-value>...</span></div><div class=spec-row><span class=spec-label>Mouse:</span><span class=spec-value>...</span></div></div></div></div></div></div> -->
 <div id="avatarModal" class="avatar-modal">
     <span class="avatar-modal-close">&times;</span>
     <div class="avatar-modal-content">
@@ -206,7 +143,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Observer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Physics2DPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/PhysicsPropsPlugin.min.js"></script>
-
     <script src="script.js"></script>
 </body>
 </html>
