@@ -150,54 +150,30 @@
             margin-bottom: 28px;
         }
         
-        .lava-lamp {
-            position: absolute;
-            top: -24px;
-            left: -24px;
-            width: calc(100% + 48px);
-            height: calc(100% + 48px);
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 3;
-            filter: blur(14px) contrast(22);
-            animation: discord-glow 10s linear infinite;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-        }
+.lava-lamp {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+    z-index: 2;
+    pointer-events: none;
+}
 
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: move-blob 18s ease-in-out infinite;
-        }
-
-        .blob.discord-primary { background: radial-gradient(circle, #667eea, #5568d3); }
-        .blob.discord-success { background: radial-gradient(circle, #00d166, #00a86b); }
-        .blob.discord-warning { background: radial-gradient(circle, #faa61a, #f57c00); }
-        .blob.discord-danger { background: radial-gradient(circle, #ed4245, #c53030); }
-        .blob.discord-boost { background: radial-gradient(circle, #ff73fa, #d946ef); }
-        .blob.discord-nitro { background: radial-gradient(circle, #ff6b35, #e53e3e); }
-
-        @keyframes discord-glow {
-            0%, 100% { 
-                filter: blur(14px) contrast(22) hue-rotate(0deg);
-                transform: rotate(0deg);
-            }
-            50% { 
-                filter: blur(16px) contrast(20) hue-rotate(180deg);
-                transform: rotate(180deg);
-            }
-        }
+.lava-lamp img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
         #avatar {
-            width: 180px;
-            height: 180px;
+            width: 165px;
+            height: 165px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid rgba(255, 255, 255, 0.2);
             position: relative;
-            z-index: 2;
+            z-index: 1;
             transition: all var(--transition-smooth);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
@@ -311,17 +287,17 @@
             margin-bottom: 18px;
             font-size: 1.08em;
         }
-        .dream-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            position: relative;
-            transition: all var(--transition-smooth);
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .dream-link:hover {
-            color: #764ba2;
-        }
+.dream-link {
+    color: var(--text-secondary); 
+    text-decoration: none;
+    position: relative;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    font-weight: 600;
+}
+.dream-link:hover {
+    color: inherit;
+}
         .dream-link::after {
             content: '';
             position: absolute;
@@ -943,10 +919,6 @@
                 width: 300px; 
                 height: 169px; 
             }
-            #avatar { 
-                width: 150px; 
-                height: 150px; 
-            }
             .bio-link {
                 padding: 16px 20px;
                 font-size: 1.05em;
@@ -983,22 +955,6 @@
                 padding: 14px 28px;
                 font-size: 15px;
                 bottom: 24px;
-            }
-        }
-
-        /* Animations */
-        @keyframes move-blob {
-            0%, 100% { 
-                transform: scale(1) translate(0, 0); 
-            }
-            25% { 
-                transform: scale(1.3) translate(30px, -50px); 
-            }
-            50% { 
-                transform: scale(0.8) translate(-40px, 60px); 
-            }
-            75% { 
-                transform: scale(1.2) translate(-60px, -30px); 
             }
         }
 
@@ -1131,6 +1087,11 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #764ba2, #667eea);
         }
+        @keyframes decoration-rotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+}
     </style>
 </head>
 <body>
@@ -1153,20 +1114,13 @@
             </svg>
         </button>
             <div class="profile-section">   
-                <div class="avatar-container">
-                    <!--
-<div class="lava-lamp">
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div> 
-</div>-->
-                    <img id="avatar" src="avatar.jpg" alt="Avatar">
-                </div>
+ <div class="avatar-container">
+    <div class="lava-lamp">
+        <img src="https://cdn.jsdelivr.net/gh/itspi3141/discord-fake-avatar-decorations@main/public/decorations/lava_blobs_blue.png" 
+             alt="decoration">
+    </div>
+    <img id="avatar" src="avatar.jpg" alt="Avatar">
+</div>
                 <h1 class="name" lang="vi">Minh Nguyễn</h1>
             </div>
 
@@ -1279,6 +1233,19 @@
         </div>
     </div>
 -->
+    <!-- Avatar Modal -->
+<div id="avatarModal" class="avatar-modal">
+    <span class="avatar-modal-close">&times;</span>
+    <div class="avatar-modal-content">
+        <img src="avatar.jpg" alt="Avatar Full Size">
+    </div>
+    <button class="avatar-modal-download">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Download
+    </button>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Draggable.min.js"></script>
@@ -2037,183 +2004,6 @@ function closeVisitingTaglineModal() {
         handleHashChange(); // Set initial tab on page load.
     }
 
-function initializeDiscordAvatarDecoration() {
-    const lavaLamp = document.querySelector('.lava-lamp');
-    if (!lavaLamp) return;
-    const decorationController = new DiscordAvatarDecoration(lavaLamp);
-    decorationController.start();
-
-    const avatar = document.getElementById('avatar');
-    if (avatar) {
-        avatar.addEventListener('mouseenter', () => {
-            decorationController.onAvatarHover(true);
-        });
-        
-        avatar.addEventListener('mouseleave', () => {
-            decorationController.onAvatarHover(false);
-        });
-
-        avatar.addEventListener('click', () => {
-            decorationController.onAvatarClick();
-        });
-    }
-}
-
-class DiscordAvatarDecoration {
-    constructor(container) {
-        this.container = container;
-        this.blobs = [];
-        this.animationFrame = null;
-        this.isHovered = false;
-        this.time = 0;
-        this.colors = ['discord-primary', 'discord-success', 'discord-warning', 
-                      'discord-danger', 'discord-boost', 'discord-nitro'];
-        this.initializeBlobs();
-    }
-
-    initializeBlobs() {
-        this.container.innerHTML = '';
-        this.blobs = [];
-
-        const blobCount = 8;
-        const centerX = 50;
-        const centerY = 50;
-
-        for (let i = 0; i < blobCount; i++) {
-            const blob = document.createElement('div');
-            blob.className = `blob ${this.colors[i % this.colors.length]}`;
-            
-            const angle = (i / blobCount) * Math.PI * 2;
-            const radius = 35 + Math.random() * 10;
-            
-            const blobData = {
-                element: blob,
-                baseX: centerX + Math.cos(angle) * radius,
-                baseY: centerY + Math.sin(angle) * radius,
-                currentX: centerX + Math.cos(angle) * radius,
-                currentY: centerY + Math.sin(angle) * radius,
-                baseSize: 20 + Math.random() * 15,
-                currentSize: 20 + Math.random() * 15,
-                phase: Math.random() * Math.PI * 2,
-                speed: 0.02 + Math.random() * 0.01,
-                orbitRadius: radius,
-                pulseDuration: 2000 + Math.random() * 1000,
-                lastPulse: Date.now(),
-                colorIndex: i % this.colors.length
-            };
-
-            this.blobs.push(blobData);
-            this.container.appendChild(blob);
-        }
-    }
-
-    start() {
-        this.animate();
-    }
-    stop() {
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
-    }
-    onAvatarHover(isHovered) {
-        this.isHovered = isHovered;
-        
-        this.blobs.forEach((blob, index) => {
-            if (isHovered) {
-                // Hiệu ứng expand khi hover
-                blob.targetSize = blob.baseSize * 1.5;
-                blob.targetOrbitRadius = blob.orbitRadius * 1.3;
-                blob.element.style.filter = 'blur(2px) drop-shadow(0 0 20px currentColor) brightness(1.3)';
-            } else {
-                // Trở về trạng thái bình thường
-                blob.targetSize = blob.baseSize;
-                blob.targetOrbitRadius = blob.orbitRadius;
-                blob.element.style.filter = 'blur(4px) drop-shadow(0 0 10px currentColor) brightness(1)';
-            }
-        });
-    }
-
-
-    onAvatarClick() {
-
-        this.blobs.forEach((blob, index) => {
-            setTimeout(() => {
-                blob.burstEffect = true;
-                blob.burstStartTime = Date.now();
-
-                blob.colorIndex = Math.floor(Math.random() * this.colors.length);
-                blob.element.className = `blob ${this.colors[blob.colorIndex]}`;
-            }, index * 50);
-        });
-    }
-
-    animate() {
-        this.time += 0.016;
-        const currentTime = Date.now();
-
-        this.blobs.forEach((blob, index) => {
-            const angleOffset = this.time * blob.speed + blob.phase;
-            const orbitRadius = blob.targetOrbitRadius || blob.orbitRadius;
-            
-            // Smooth transition orbit radius
-            blob.orbitRadius += (orbitRadius - blob.orbitRadius) * 0.1;
-            
-            blob.currentX = 50 + Math.cos(angleOffset) * blob.orbitRadius;
-            blob.currentY = 50 + Math.sin(angleOffset) * blob.orbitRadius;
-
-            // Thêm chuyển động wave
-            const waveX = Math.sin(this.time * 2 + index) * 3;
-            const waveY = Math.cos(this.time * 1.5 + index) * 3;
-            
-            blob.currentX += waveX;
-            blob.currentY += waveY;
-
-            // Pulse effect
-            const timeSinceLastPulse = currentTime - blob.lastPulse;
-            if (timeSinceLastPulse > blob.pulseDuration) {
-                blob.lastPulse = currentTime;
-                blob.pulseDuration = 2000 + Math.random() * 2000;
-            }
-            
-            const pulseProgress = timeSinceLastPulse / blob.pulseDuration;
-            const pulseMultiplier = 1 + Math.sin(pulseProgress * Math.PI * 2) * 0.3;
-
-            // Size handling
-            const targetSize = (blob.targetSize || blob.baseSize) * pulseMultiplier;
-            blob.currentSize += (targetSize - blob.currentSize) * 0.1;
-
-            // Burst effect
-            if (blob.burstEffect) {
-                const burstDuration = 800;
-                const burstProgress = (currentTime - blob.burstStartTime) / burstDuration;
-                
-                if (burstProgress < 1) {
-                    const burstScale = 1 + Math.sin(burstProgress * Math.PI) * 0.8;
-                    blob.currentSize = blob.baseSize * burstScale;
-                    
-                    // Hiệu ứng màu sắc burst
-                    blob.element.style.filter = `blur(${2 + burstProgress * 8}px) drop-shadow(0 0 ${20 + burstProgress * 30}px currentColor) brightness(${1 + burstProgress})`;
-                } else {
-                    blob.burstEffect = false;
-                    blob.element.style.filter = 'blur(4px) drop-shadow(0 0 10px currentColor) brightness(1)';
-                }
-            }
-
-            blob.element.style.left = `${blob.currentX}%`;
-            blob.element.style.top = `${blob.currentY}%`;
-            blob.element.style.width = `${blob.currentSize}px`;
-            blob.element.style.height = `${blob.currentSize}px`;
-            blob.element.style.transform = `translate(-50%, -50%) rotate(${angleOffset * 180 / Math.PI}deg)`;
-
-            const morphX = 50 + Math.sin(this.time + index) * 20;
-            const morphY = 50 + Math.cos(this.time * 0.7 + index) * 20;
-            blob.element.style.borderRadius = `${morphX}% ${100-morphX}% ${morphY}% ${100-morphY}%`;
-        });
-
-        this.animationFrame = requestAnimationFrame(() => this.animate());
-    }
-}
-
     /**
      * Initializes other minor interactive effects.
      */
@@ -2226,8 +2016,6 @@ function initializeInteractiveEffects() {
             videoCarousel.scrollLeft += e.deltaY;
         });
     }
-
-    initializeDiscordAvatarDecoration();
 }
 
 
